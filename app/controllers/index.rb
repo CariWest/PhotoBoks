@@ -24,5 +24,6 @@ get '/user' do
   if user
     puts "this is the user home page"
     "hello world"
+    erb :"user/index", locals: { user: user}
   end
 end
