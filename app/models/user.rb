@@ -3,6 +3,7 @@ require 'bcrypt'
 class User < ActiveRecord::Base
   validates :username, :password, :email, presence: true
   validates :username, :email, uniqueness: true
+  validates :email, format: { with: /\A[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+\z/ }
 
   has_many :albums
   has_many :photos
