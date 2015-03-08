@@ -8,10 +8,10 @@ get '/user/login' do
 end
 
 post '/user/register' do
-  user = User.create(params[:user])
+  user = User.new(params[:user])
   # the password isn't being converted into a password hash
   puts "does this go in post user?"
-  if user.persisted?
+  if user.save
     session[:id] = user.id
     redirect '/user'
   else
@@ -24,7 +24,7 @@ post '/user/login' do
   # the user isn't being found
 
   puts "outside user authentication"
-  if user.authenticate(params[:password_hash])
+  if user.authenticate(params[:password])
     puts "inside user authentication!!"
     session[:id] = user.id
     redirect '/user'
