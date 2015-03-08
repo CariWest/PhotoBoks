@@ -69,13 +69,10 @@ GEM
       rack-test
       sinatra (~> 1.4.0)
       tilt (~> 1.3)
-<<<<<<< HEAD
-=======
     thin (1.6.2)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
->>>>>>> ff6d022cb397b06372b9a51c579822821ad3a12c
     thread_safe (0.3.4)
     tilt (1.4.1)
     tzinfo (1.2.0)
@@ -92,10 +89,7 @@ DEPENDENCIES
   capybara
   factory_girl
   faker
-<<<<<<< HEAD
   hirb
-=======
->>>>>>> ff6d022cb397b06372b9a51c579822821ad3a12c
   pg
   rack-test
   rake
@@ -104,7 +98,4 @@ DEPENDENCIES
   shoulda-matchers
   sinatra
   sinatra-contrib
-<<<<<<< HEAD
-=======
   thin
->>>>>>> ff6d022cb397b06372b9a51c579822821ad3a12c
