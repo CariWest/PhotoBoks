@@ -24,3 +24,7 @@ a {
   float: right;
   margin: 1em;
 }
+
+.error {
+  color: red;
+}

@@ -9,34 +9,33 @@ end
 
 post '/user/register' do
   user = User.new(params[:user])
-  # the password isn't being converted into a password hash
-  puts "does this go in post user?"
   if user.save
     session[:id] = user.id
     redirect '/user'
   else
+    # a user doesn't get an error if they don't put in a password...
     erb :"user/_new", locals: { user: user }
   end
 end
 
 post '/user/login' do
   user = User.find(username: params[:username])
-  # the user isn't being found
+  authentication = user.authenticate(params[:password])
 
-  puts "outside user authentication"
-  if user.authenticate(params[:password])
-    puts "inside user authentication!!"
+  errors = []
+
+  if user == nil
+    errors << "User does not exist"
+  elsif authentication == false
+    errors << "Password does not match"
+  end
+
+  if errors.empty?
     session[:id] = user.id
     redirect '/user'
   else
-    # render errors
-    erb :"user/_login"
+    erb :"user/_login", locals: { errors: errors }
   end
-
-  # if they log in successfully
-    # give them a session id
-  # else
-    # rerender the page with an error message
 end
 
 get '/user' do
