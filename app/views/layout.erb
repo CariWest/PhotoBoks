@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- 
+  <!--
     normalize.css removes cross-browser differences in defaults, e.g.,
     differences in how form elements appear between Firefox and IE
     See: http://necolas.github.com/normalize.css/
@@ -15,9 +15,18 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="/js/application.js"></script>
 
-  <title></title>
+  <title>Insta Albums</title>
 </head>
 <body>
+  <header class="container">
+    <% if session[:id] %>
+      <h3 class="button"><a href="/user/logout">Log Out</a></h3>
+    <% else %>
+      <h3 class="button"><a href="/user/login">Log In</a></h3>
+      <h3 class="button"><a href="/user/new">Register</a></h3>
+    <% end %>
+  </header>
+
   <%= yield %>
 </body>
 </html>
