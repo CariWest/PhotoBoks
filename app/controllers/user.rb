@@ -4,7 +4,7 @@ get '/user/new' do
 end
 
 get '/user/login' do
-  erb :"user/_login"
+  erb :"user/_login", locals: { errors: [], user: User.new }
 end
 
 post '/user/register' do
@@ -19,14 +19,14 @@ post '/user/register' do
 end
 
 post '/user/login' do
-  user = User.find(username: params[:username])
-  authentication = user.authenticate(params[:password])
-
+  user = User.where(username: params[:username]).first
   errors = []
 
   if user == nil
     errors << "User does not exist"
-  elsif authentication == false
+    user = User.new
+  elsif user.authenticate(params[:password]) == false
+    puts "authentication failed"
     errors << "Password does not match"
   end
 
@@ -34,8 +34,9 @@ post '/user/login' do
     session[:id] = user.id
     redirect '/user'
   else
-    erb :"user/_login", locals: { errors: errors }
+    erb :"user/_login", locals: { user: user, errors: errors }
   end
+  # password authentication is failing :(
 end
 
 get '/user' do

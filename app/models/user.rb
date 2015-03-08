@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   include BCrypt
 
   def password
-    @password ||= Password.new(password_hash)
+    @password ||= Password.new(password_hash) if password_hash
   end
 
   def password=(new_password)
@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
     self.password_hash = @password
   end
 
-  def authenticate(password_attempt)
-    self.password_hash == password_attempt
+  def authenticate(password)
+    self.password == password
   end
 end
