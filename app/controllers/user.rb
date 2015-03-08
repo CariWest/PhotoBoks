@@ -1,5 +1,11 @@
 get '/user/new' do
-  erb :"user/_new"
+  user = User.new
+  erb :"user/_new", locals: { user: user }
+end
+
+get '/user/login' do
+  user = User.new
+  erb :"user/_login", locals: { user: user }
 end
 
 post '/user' do
@@ -13,12 +19,16 @@ post '/user' do
   end
 end
 
+put '/user' do
+  # if they log in successfully
+    # give them a session id
+  # else
+    # rerender the page with an error message
+end
+
 get '/user' do
   user = User.find(session[:id])
-  puts user
   if user
-    puts "this is the user home page"
-    "hello world"
     erb :"user/index", locals: { user: user}
   end
 end
