@@ -4,13 +4,13 @@ get '/user/new' do
 end
 
 get '/user/login' do
-  user = User.new
-  erb :"user/_login", locals: { user: user }
+  erb :"user/_login"
 end
 
-post '/user' do
+post '/user/register' do
   user = User.create(params[:user])
-
+  # the password isn't being converted into a password hash
+  puts "does this go in post user?"
   if user.persisted?
     session[:id] = user.id
     redirect '/user'
@@ -19,7 +19,20 @@ post '/user' do
   end
 end
 
-put '/user' do
+post '/user/login' do
+  user = User.find(username: params[:username])
+  # the user isn't being found
+
+  puts "outside user authentication"
+  if user.authenticate(params[:password_hash])
+    puts "inside user authentication!!"
+    session[:id] = user.id
+    redirect '/user'
+  else
+    # render errors
+    erb :"user/_login"
+  end
+
   # if they log in successfully
     # give them a session id
   # else

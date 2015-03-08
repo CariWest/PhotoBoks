@@ -1,11 +1,11 @@
 <div class="container">
   <h3>Log In</h3>
-  <form action="/user" method="put">
+  <form action="/user/login" method="post">
     <p>
-      <input type="text" name="user[username]" placeholder="username" />
+      <input type="text" name="username" placeholder="username" />
     </p>
     <p>
-      <input type="password" name="user[password_hash]" placeholder="password" />
+      <input type="password" name="password_hash" placeholder="password" />
     </p>
 
     <input type="submit" value="Log In" />
