@@ -2,8 +2,11 @@ h1 {
   float: left;
 }
 
-header {
+.nav-bar {
   position: relative;
+  width: 100%;
+  background-color: yellow;
+  height: 50px;
 }
 
 a {
@@ -20,7 +23,12 @@ a {
   border: 1px dashed black;
 }
 
-.button {
+.left {
+  float: left;
+  margin: 1em;
+}
+
+.right {
   float: right;
   margin: 1em;
 }
