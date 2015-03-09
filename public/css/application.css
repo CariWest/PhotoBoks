@@ -63,10 +63,13 @@ a {
 }
 
 .picture {
-  position: relative;
   height: 200px;
   width: 200px;
-  border: 1px dashed black;
-  /*Why isn't this border showing up?*/
   margin: .5em auto;
+  border: 1px dashed black;
+}
+
+.picture img {
+  width: 200px;
+  height: auto;
 }

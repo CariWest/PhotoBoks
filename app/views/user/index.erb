@@ -6,29 +6,8 @@
 <div class="container albums">
   <h3>Albums</h3>
 
-  <a href="#"><div class="album">
-    <div class="picture"></div>
-    <p class="album-title">Album 1</p>
-  </div></a>
-  <a href="#"><div class="album">
-    <div class="picture"></div>
-    <p class="album-title">Album 2</p>
-  </div></a>
-  <a href="#"><div class="album">
-    <div class="picture"></div>
-    <p class="album-title">Album 3</p>
-  </div></a>
+  <% albums.each do |album| %>
+    <%= erb :"/albums/_album", locals: { album: album } %>
+  <% end %>
 
-  <a href="#"><div class="album">
-    <div class="picture"></div>
-    <p class="album-title">Album 4</p>
-  </div></a>
-  <a href="#"><div class="album">
-    <div class="picture"></div>
-    <p class="album-title">Album 5</p>
-  </div></a>
-  <a href="#"><div class="album">
-    <div class="picture"></div>
-    <p class="album-title">Album 6</p>
-  </div></a>
 </div>
