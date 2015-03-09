@@ -10,7 +10,7 @@ var Album = function(title, cover) {
   // removed album tag for now... should add that in asap
 }
 
-Album.prototype.buildAlbum = function(albumName, albumCover) {
+Album.prototype.buildAlbumElement = function(albumName, albumCover) {
   // removed albumTag from this for now...
   var albumTemplate = $.trim($('#album_template').html());
   var $album = $(albumTemplate);
@@ -37,8 +37,7 @@ $(document).ready(function() {
     winning();
 
     request.done( function(data) {
-      console.log(data)
-      // $(data).insertAfter('.welcome');
+      $(data.form).insertAfter('.welcome');
     })
 
     // debugger

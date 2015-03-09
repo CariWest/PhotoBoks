@@ -2,11 +2,13 @@ get '/albums' do
 end
 
 get '/albums/new' do
+  form = erb :"albums/new", layout: false
   content_type :json
-  erb :"albums/new".to_json
+  { form: form }.to_json
 end
 
 post '/albums' do
+
 end
 
 put '/album/:id' do
