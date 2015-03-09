@@ -1,7 +1,21 @@
-$(document).ready(function() {
-  // This is called after the document has loaded in its entirety
-  // This guarantees that any elements we bind to will exist on the page
-  // when we try to bind to them
+var Album = function(title, tag) {
+  this.title = title;
+  this.tag = tag
+}
 
-  // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
+Album.View = function() {
+
+}
+
+$(document).ready(function() {
+
+  $('.new-album').on('click', function(event) {
+    event.preventDefault();
+    console.log("winning");
+    // when this default is clicked, I want a form to appear above this div so that a user can create an album.
+  })
+
+
+
+
 });
