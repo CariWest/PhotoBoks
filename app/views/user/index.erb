@@ -1,34 +1,31 @@
-<div class="container">
+<div class="container welcome">
   <h2>welcome, <%= user.username %>!</h2>
   <p><%= user.email %></p>
 </div>
 
 <div class="container albums">
-  <h3>Albums</h3>
+  <div class="album-nav">
+    <h3 class="left">Albums</h3>
+    <h3 class="right">
+      <a class="new-album" href="/albums/new">Add Album</a>
+    </h3>
+  </div>
 
-  <a href="#"><div class="album">
-    <div class="picture"></div>
-    <p class="album-title">Album 1</p>
-  </div></a>
-  <a href="#"><div class="album">
-    <div class="picture"></div>
-    <p class="album-title">Album 2</p>
-  </div></a>
-  <a href="#"><div class="album">
-    <div class="picture"></div>
-    <p class="album-title">Album 3</p>
-  </div></a>
+  <div class="all-albums">
+    <% albums.each do |album| %>
+      <%= erb :"/albums/_album", locals: { album: album } %>
+    <% end %>
+  </div>
 
-  <a href="#"><div class="album">
-    <div class="picture"></div>
-    <p class="album-title">Album 4</p>
-  </div></a>
-  <a href="#"><div class="album">
-    <div class="picture"></div>
-    <p class="album-title">Album 5</p>
-  </div></a>
-  <a href="#"><div class="album">
-    <div class="picture"></div>
-    <p class="album-title">Album 6</p>
-  </div></a>
+</div>
+
+<div id="album-template" style="display: none;">
+  <a href="#">
+    <div class="album">
+      <div class="picture">
+        <img src="#" />
+      </div>
+      <p class="album-title">Album Title</p>
+    </div>
+  </a>
 </div>

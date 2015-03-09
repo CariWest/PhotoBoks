@@ -1,10 +1,10 @@
 get '/user/register' do
   user = User.new
-  erb :"user/_new", locals: { user: user }
+  erb :"user/new", locals: { user: user }
 end
 
 get '/user/login' do
-  erb :"user/_login", locals: { errors: [], user: User.new }
+  erb :"user/login", locals: { errors: [], user: User.new }
 end
 
 post '/user/register' do
@@ -14,7 +14,7 @@ post '/user/register' do
     redirect '/user'
   else
     # a user doesn't get an error if they don't put in a password...
-    erb :"user/_new", locals: { user: user }
+    erb :"user/new", locals: { user: user }
   end
 end
 
@@ -34,14 +34,7 @@ post '/user/login' do
     session[:id] = user.id
     redirect '/user'
   else
-    erb :"user/_login", locals: { user: user, errors: errors }
-  end
-end
-
-get '/user' do
-  user = User.find(session[:id])
-  if user
-    erb :"user/index", locals: { user: user}
+    erb :"user/login", locals: { user: user, errors: errors }
   end
 end
 
