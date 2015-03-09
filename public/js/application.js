@@ -32,22 +32,16 @@ $(document).ready(function() {
     var request = $.ajax({
       url: NEW_ALBUM_URL,
       type: 'get'
-    })
-
-    winning();
+    });
 
     request.done( function(data) {
-      $(data.form).insertAfter('.welcome');
-    })
+      $(data.form).insertAfter('.welcome'); // should abstract this away.
+    });
 
-    // debugger
-
-    // go to the post route
-    // get the form
-    // pass the form back as a json object
-
-    // when this default is clicked, I want a form to appear above this div so that a user can create an album.
-  })
+    request.fail( function(data) {
+      console.log("new album form fails to appear")
+    });
+  });
 
 
 
