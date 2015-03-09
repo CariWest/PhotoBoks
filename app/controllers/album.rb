@@ -1,7 +1,12 @@
 get '/albums' do
 end
 
-post '/albums/new' do
+get '/albums/new' do
+  content_type :json
+  erb :"albums/new".to_json
+end
+
+post '/albums' do
 end
 
 put '/album/:id' do
