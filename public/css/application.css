@@ -45,7 +45,7 @@ a {
   color: red;
 }
 
-/******************* USER HOME PAGE *******************/
+/******************* ALBUMS *******************/
 .album {
   position: relative;
   display: inline-block;
@@ -57,11 +57,16 @@ a {
   /*How do I center these on the page?*/
 }
 
+
+.album-title {
+  margin: 0px 24px;
+}
+
 .picture {
   position: relative;
   height: 200px;
   width: 200px;
-  border: 1px solid dashed;
+  border: 1px dashed black;
   /*Why isn't this border showing up?*/
-  margin: auto;
+  margin: .5em auto;
 }
