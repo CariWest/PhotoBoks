@@ -5,20 +5,18 @@ var winning = function() {
 var NEW_ALBUM_URL = '/albums/new'
 var POST_NEW_ALBUM = '/albums'
 
-var Album = function(title, tag, cover) {
+var Album = function(title, tag) {
   this.title = title;
   this.tag = tag;
-  this.cover = cover;
 }
 
-Album.create = function() {
+Album.create = function(title, tag) {
   var request = $.ajax({
     url: POST_NEW_ALBUM,
     method: 'post',
     data: {
-      title: this.title,
-      tag: this.tag,
-      cover: this.cover
+      title: title,
+      tag: tag
     }
   });
 
@@ -31,7 +29,7 @@ Album.create = function() {
   })
 }
 
-Album.prototype.buildAlbumElement = function(albumName, albumTag, albumCover) {
+Album.View.buildAlbumElement = function(albumName, albumTag, albumCover) {
   var albumTemplate = $.trim($('#album_template').html());
   var $album = $(albumTemplate);
   $album.find('img').attr('src', albumCover);
@@ -39,11 +37,6 @@ Album.prototype.buildAlbumElement = function(albumName, albumTag, albumCover) {
   $album.find('h2').text(albumName);
   return $album;
 }
-
-// Album.View = function() {
-
-// }
-
 
 AlbumCollection = function(formSelector) {
   this.view = new AlbumCollection.View(formSelector);
@@ -59,10 +52,10 @@ AlbumCollection.prototype.listenForNewAlbums = function() {
 }
 
 AlbumCollection.prototype.makeNewAlbum = function() {
+  debugger
   var album = Album.create(
-    this.view.$elt.find('.title'),
-    this.view.$elt.find('.tag'),
-    this.view.$elt.find('.cover')
+    this.view.$elt.find('.title').val(),
+    this.view.$elt.find('.tag').val()
   );
 
   this.albums.push(album); // still need to do something with the album we've created after this to add it to the page
