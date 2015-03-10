@@ -30,6 +30,10 @@ get '/albums/:id' do
 end
 
 get '/albums/:id/edit' do
+  album = Album.find(params[:id])
+  form = erb :"/albums/edit", locals: { album: album }, layout: false
+  content_type :json
+  { form: form  }.to_json
 end
 
 put '/albums/:id' do

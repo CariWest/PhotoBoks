@@ -5,3 +5,7 @@ get '/user' do
     erb :"user/index", locals: { user: user, albums: albums}
   end
 end
+
+get '/auth' do
+  p params
+end

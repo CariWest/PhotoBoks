@@ -12,6 +12,12 @@
     </ul>
   <% end %>
 
+  <p>Register with Instagram (recommended)</p>
+  <form action="/user/register/instagram" method="post">
+    <button class="insta-login">Register</button>
+  </form>
+
+  <p>Or Register Here</p>
   <form action="/user/register" method="post">
     <p>
       <input type="text" name="user[username]" placeholder="Username" value="<%= user.username %>" />
@@ -25,4 +31,5 @@
 
     <input type="submit" value="Register" />
   </form>
+
 </div>

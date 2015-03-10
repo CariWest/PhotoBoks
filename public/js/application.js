@@ -4,6 +4,7 @@ var winning = function() {
 
 var NEW_ALBUM_URL = '/albums/new'
 var POST_NEW_ALBUM = '/albums'
+var
 
 var Album = function(title, tag) {
   this.title = title;
@@ -137,6 +138,33 @@ $(document).ready(function() {
     }
   });
 
+  $('.edit').on('click', function(event) {
+    event.preventDefault();
+
+    var request = $.ajax({
+      url: $(this).attr('href'),
+      method: 'get'
+    });
+
+    request.done( function(data) {
+      debugger
+      $(data.form).insertAfter('.welcome');
+      // couldn't find album with 'id' = :id???
+      // need to work with the controller for this function?
+    });
+
+    request.fail( function(data) {
+      console.log("edit album form fails to appear")
+    })
+  })
+
+  $('.insta-login').on('click', function(event) {
+    event.preventDefault();
+
+    var request = $.ajax(
+      url: INSTAGRAM_AUTH_URL
+    );
+  })
 
 });
 
