@@ -21,8 +21,17 @@ Album.create = function(title, tag) {
     }
   });
 
-  request.done( function() {
+  request.done( function(serverData) {
     winning();
+    var album = {
+      albumName: serverData.albumName,
+      albumTag: serverData.albumTag,
+      albumCover: serverData.albumCover
+    }
+
+    debugger
+    $album = buildAlbumElement(album);
+    $('.all-albums').prepend($album)
   });
 
   request.fail( function() {
@@ -32,13 +41,14 @@ Album.create = function(title, tag) {
 
 Album.View = function() {}
 
-Album.View.prototype.buildAlbumElement = function(album) {
-  var albumTemplate = $.trim($('#album_template').html());
-  var album = $(albumTemplate);
-  album.find('img').attr('src', albumCover);
-  album.find('.tag').html(albumTag)
-  album.find('h2').text(albumName);
-  this.$album = album;
+// would love to attach this to the view, but it wasn't working?
+var buildAlbumElement = function(albumItem) {
+  var albumTemplate = $.trim($('#album-template').html());
+  var $album = $(albumTemplate);
+  $album.find('img').attr('src', albumItem.albumCover);
+  $album.find('.tag').html(albumItem.albumTag)
+  $album.find('h2').text(albumItem.albumName);
+  return $album
 }
 
 AlbumCollection = function(formSelector) {
@@ -55,7 +65,6 @@ AlbumCollection.prototype.listenForNewAlbums = function() {
 }
 
 AlbumCollection.prototype.makeNewAlbum = function() {
-  debugger
   var album = Album.create(
     this.view.$elt.find('.title').val(),
     this.view.$elt.find('.tag').val()
