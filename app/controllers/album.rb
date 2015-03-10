@@ -26,7 +26,7 @@ end
 
 get '/albums/:id' do
   album = Album.find(params[:id])
-  erb :"albums/single_album", locals: { album: album }
+  erb :"albums/index", locals: { album: album }
 end
 
 get '/album/:id/edit' do

@@ -6,6 +6,13 @@
 </div>
 
 <div class="container">
+
+  <div class="album-nav">
+    <h3 class="right">
+      <a class="delete-album" href="/delete/<%= album.id %>">Delete Album</a>
+    </h3>
+  </div>
+
   <% album.photos.each do |photo| %>
     <%= erb :"/albums/_photo", locals: { photo: photo } %>
   <% end %>
