@@ -9,6 +9,7 @@ end
 
 post '/albums' do
   p params
+  Album.new(title: params[:title])
 end
 
 put '/album/:id' do
