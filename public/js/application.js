@@ -118,9 +118,6 @@ $(document).ready(function() {
     });
   });
 
-  console.log('controller: ')
-  console.log(controller);
-
   $('.delete').on('click', function(event) {
     event.preventDefault();
 
@@ -131,7 +128,7 @@ $(document).ready(function() {
       });
 
       request.done( function(data) {
-        location.href="/user"
+        location.href="/user";
       });
 
       request.fail( function(data) {

@@ -9,12 +9,17 @@
 
   <div class="album-nav">
     <h3 class="right">
-      <a class="delete" href="/albums/<%= album.id %>">Delete Album</a>
+      <a class="edit" href="/albums/<%= album.id %>">Delete</a>
+    </h3>
+    <h3 class="left">
+      <a class="delete" href="/albums/<%= album.id %>">Edit</a>
     </h3>
   </div>
 
-  <% album.photos.each do |photo| %>
-    <%= erb :"/albums/_photo", locals: { photo: photo } %>
-  <% end %>
+  <div class="many-photos">
+    <% album.photos.each do |photo| %>
+      <%= erb :"/albums/_photo", locals: { photo: photo } %>
+    <% end %>
+  </div>
 </div>
 

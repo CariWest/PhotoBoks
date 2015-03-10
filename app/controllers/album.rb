@@ -37,6 +37,5 @@ end
 
 delete '/albums/:id' do
   Album.find(params[:id]).destroy
-  # redirect '/user'
 end
 

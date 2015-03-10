@@ -44,18 +44,19 @@ h1 {
   color: red;
 }
 
-/******************* ALBUMS *******************/
+/************* ALBUMS & PHOTOS *************/
+.many-photos {
+  clear: both;
+}
+
 .album-nav {
   width: 100%;
 }
 
+/******************* ALBUMS *******************/
 .album-nav a {
   color: black;
   text-decoration: none;
-}
-
-.all-albums {
-  clear: both;
 }
 
 .album {
