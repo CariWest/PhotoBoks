@@ -36,5 +36,6 @@ put '/album/:id' do
 end
 
 delete '/album/:id' do
+  puts "inside delete"
 end
 

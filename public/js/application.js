@@ -121,6 +121,24 @@ $(document).ready(function() {
   console.log('controller: ')
   console.log(controller);
 
+  $('.delete').on('click', function(event) {
+    event.preventDefault();
+
+    var request = $.ajax({
+      url: $(this).attr('href'),
+      method: 'delete'
+      data: // album ID
+    });
+
+    request.done( function(data) {
+      winning();
+    });
+
+    request.fail( function(data) {
+      console.log("delete fails");
+    });
+  });
+
 
 });
 
