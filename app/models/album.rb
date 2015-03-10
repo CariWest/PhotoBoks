@@ -1,6 +1,6 @@
 class Album < ActiveRecord::Base
 
-  validates :title, presence: true
+  validates :title, :user_id, presence: true
 
   belongs_to :user
   belongs_to :tag

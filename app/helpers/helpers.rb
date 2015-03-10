@@ -1,11 +1,16 @@
 helpers do
 
-  def create_tag(tag_name)
-    Tag.create(tag: tag_name) unless tag_exists?
+  def get_tag(tag_name)
+    tag =Tag.where(tag: tag_name).first
+    if tag
+      return tag
+    else
+      return Tag.create(tag: tag_name)
+    end
   end
 
-  def tag_exists?(tag_name)
-    Tag.where(tag: tag_name).first ? true : false
+  def get_current_user(id)
+    return User.find(id)
   end
 
 end
