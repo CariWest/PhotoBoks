@@ -87,11 +87,12 @@ h1 {
 
 /******************* SINGLE ALBUM *******************/
 
-.all-album-photos {
+.photo-box {
   position: relative;
   display: inline-block;
   height: 250px;
   width: 250px;
   margin: 1em;
   border: 1px solid black;
+  /*How do I center these on the page?*/
 }

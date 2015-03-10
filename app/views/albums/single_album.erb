@@ -5,7 +5,7 @@
   </div>
 </div>
 
-<div class="container all-album-photos">
+<div class="container">
   <% album.photos.each do |photo| %>
     <%= erb :"/albums/_photo", locals: { photo: photo } %>
   <% end %>
