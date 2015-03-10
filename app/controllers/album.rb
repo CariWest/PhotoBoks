@@ -24,6 +24,14 @@ post '/albums' do
   end
 end
 
+get '/albums/:id' do
+  album = Album.find(params[:id])
+  erb :"albums/single_album", locals: { album: album }
+end
+
+get '/album/:id/edit' do
+end
+
 put '/album/:id' do
 end
 
