@@ -29,13 +29,14 @@ get '/albums/:id' do
   erb :"albums/index", locals: { album: album }
 end
 
-get '/album/:id/edit' do
+get '/albums/:id/edit' do
 end
 
-put '/album/:id' do
+put '/albums/:id' do
 end
 
-delete '/album/:id' do
-  puts "inside delete"
+delete '/albums/:id' do
+  Album.find(params[:id]).destroy
+  # redirect '/user'
 end
 

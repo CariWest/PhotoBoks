@@ -124,19 +124,20 @@ $(document).ready(function() {
   $('.delete').on('click', function(event) {
     event.preventDefault();
 
-    var request = $.ajax({
-      url: $(this).attr('href'),
-      method: 'delete'
-      data: // album ID
-    });
+    if (confirm("Are you sure you want to delete?")) {
+      var request = $.ajax({
+        url: $(this).attr('href'),
+        type: 'delete'
+      });
 
-    request.done( function(data) {
-      winning();
-    });
+      request.done( function(data) {
+        location.href="/user"
+      });
 
-    request.fail( function(data) {
-      console.log("delete fails");
-    });
+      request.fail( function(data) {
+        console.log("delete fails");
+      });
+    }
   });
 
 
