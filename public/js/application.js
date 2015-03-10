@@ -3,27 +3,88 @@ var winning = function() {
 }
 
 var NEW_ALBUM_URL = '/albums/new'
+var POST_NEW_ALBUM = '/albums'
 
-var Album = function(title, cover) {
+var Album = function(title, tag) {
   this.title = title;
-  this.cover = cover;
-  // removed album tag for now... should add that in asap
+  this.tag = tag;
+  this.view = new Album.View(this)
 }
 
-Album.prototype.buildAlbumElement = function(albumName, albumCover) {
-  // removed albumTag from this for now...
-  var albumTemplate = $.trim($('#album_template').html());
+Album.create = function(title, tag) {
+  var request = $.ajax({
+    url: POST_NEW_ALBUM,
+    method: 'post',
+    data: {
+      title: title,
+      tag: tag
+    }
+  });
+
+  request.done( function(serverData) {
+    winning();
+    var album = {
+      albumName: serverData.albumName,
+      albumTag: serverData.albumTag,
+      albumCover: serverData.albumCover
+    }
+
+    debugger
+    $album = buildAlbumElement(album);
+    $('.all-albums').prepend($album)
+  });
+
+  request.fail( function() {
+    console.log('creating album fails');
+  });
+}
+
+Album.View = function() {}
+
+// would love to attach this to the view, but it wasn't working?
+var buildAlbumElement = function(albumItem) {
+  var albumTemplate = $.trim($('#album-template').html());
   var $album = $(albumTemplate);
-  $album.find('img').attr('src', albumCover);
-  // $album.find('.tag').html(albumTag)
-  $album.find('h2').text(albumName);
-  return $album;
+  $album.find('img').attr('src', albumItem.albumCover);
+  $album.find('.tag').html(albumItem.albumTag)
+  $album.find('h2').text(albumItem.albumName);
+  return $album
 }
 
-Album.View = function() {
-
+AlbumCollection = function(formSelector) {
+  this.view = new AlbumCollection.View(formSelector);
+  this.isListening = false;
+  this.listenForNewAlbums();
+  this.albums = [];
 }
 
+AlbumCollection.prototype.listenForNewAlbums = function() {
+  if (this.isListening) return;
+  this.isListening = true;
+  this.view.createNewAlbumListener(this.makeNewAlbum.bind(this)); // undefined is not a function...
+}
+
+AlbumCollection.prototype.makeNewAlbum = function() {
+  var album = Album.create(
+    this.view.$elt.find('.title').val(),
+    this.view.$elt.find('.tag').val()
+  );
+
+  this.albums.push(album); // still need to do something with the album we've created after this to add it to the page
+}
+
+AlbumCollection.View = function(formSelector) {
+  this.$elt = $(formSelector);
+}
+
+AlbumCollection.View.prototype.createNewAlbumListener = function(callback) {
+  this.$elt.on('click', '#create-album', function(event) {
+    event.preventDefault();
+    callback();
+  });
+}
+
+// controller
 $(document).ready(function() {
 
   $('.new-album').on('click', function(event) {
@@ -35,16 +96,14 @@ $(document).ready(function() {
     });
 
     request.done( function(data) {
-      $(data.form).insertAfter('.welcome'); // should abstract this away.
+      $(data.form).insertAfter('.welcome'); // should abstract this jquery away...
+      var controller = new AlbumCollection('#new-album-form');
     });
 
     request.fail( function(data) {
-      console.log("new album form fails to appear")
+      console.log("new album form fails to appear");
     });
   });
 
 
-
-
 });
-

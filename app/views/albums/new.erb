@@ -1,11 +1,11 @@
-<div class="container create-album-form">
+<div class="container" id="new-album-form">
   <form action="/albums/new" method: "post">
     <p>
-      <input type="text" name="title" placeholder="Album Title" />
+      <input class="title" type="text" name="title" placeholder="Album Title" />
     </p>
     <p>
-      <input type="text" name="tag" placeholder="Tag" />
+      <input class="tag" type="text" name="tag" placeholder="Tag" />
     </p>
-    <input type="submit" value="Add Album"
+    <input id="create-album" type="submit" value="Add Album" />
   </form>
 </div>

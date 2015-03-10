@@ -3,6 +3,7 @@ class CreateAlbums < ActiveRecord::Migration
     create_table :albums do |t|
       t.string             :title
       t.references    :user, index: true
+      t.references    :tag, index: true
 
       t.timestamps
     end
