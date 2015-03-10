@@ -21,12 +21,15 @@ Album.create = function(title, tag) {
     }
   });
 
+  // i would like to refactor this method so it's more straightforward
+  // would probably mean refactoring the buildAlbumElement method to be incorporated into the view?
   request.done( function(serverData) {
-    winning();
+    console.log(serverData);
     var album = {
       albumName: serverData.albumName,
       albumTag: serverData.albumTag,
-      albumCover: serverData.albumCover
+      albumCover: serverData.albumCover,
+      albumId: serverData.albumId
     }
 
     $album = buildAlbumElement(album);
@@ -47,9 +50,10 @@ Album.View = function() {}
 var buildAlbumElement = function(albumItem) {
   var albumTemplate = $.trim($('#album-template').html());
   var $album = $(albumTemplate);
+  $album.find('.album').attr('id', albumItem.albumId);
   $album.find('img').attr('src', albumItem.albumCover);
   $album.find('.tag').html(albumItem.albumTag)
-  $album.find('h2').text(albumItem.albumName);
+  $album.find('.album-title').text(albumItem.albumName);
   return $album
 }
 
@@ -89,6 +93,9 @@ AlbumCollection.View.prototype.createNewAlbumListener = function(callback) {
 // controller
 $(document).ready(function() {
 
+  var controller;
+
+  // could abstract this away a little better...?... UGH.
   $('.new-album').on('click', function(event) {
     event.preventDefault();
 
@@ -99,7 +106,7 @@ $(document).ready(function() {
 
     request.done( function(data) {
       $(data.form).insertAfter('.welcome'); // should abstract this jquery away...
-      var controller = new AlbumCollection('#new-album-form');
+      controller = new AlbumCollection('#new-album-form');
     });
 
     request.fail( function(data) {
@@ -107,5 +114,11 @@ $(document).ready(function() {
     });
   });
 
+  console.log('controller: ')
+  console.log(controller);
+
 
 });
+
+// when page loads, should I be creating a collection of albums which already exist?
+// it would make sense, so that I would have access to the albums which already exist...

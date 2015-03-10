@@ -8,16 +8,16 @@ get '/albums/new' do
 end
 
 post '/albums' do
-  p params
-  p tag = get_tag(params[:tag])
-  p session[:id]
-  p user = get_current_user(session[:id])
+  tag = get_tag(params[:tag])
+  session[:id]
+  user = get_current_user(session[:id])
 
   album = Album.new(title: params[:title], user_id: user.id, tag_id: tag.id, tag_id: tag.id)
-
   if album.save
+    p "HERE"
+    p album.id
     content_type :json
-    { albumName: album.title, albumTag: album.tag.name, albumCover: album.cover  }.to_json
+    { albumName: album.title, albumTag: album.tag.name, albumCover: album.cover, albumId: album.id  }.to_json
   else
     status 400
     # render errors on page
