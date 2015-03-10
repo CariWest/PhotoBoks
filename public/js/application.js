@@ -8,6 +8,7 @@ var POST_NEW_ALBUM = '/albums'
 var Album = function(title, tag) {
   this.title = title;
   this.tag = tag;
+  this.view = new Album.View(this)
 }
 
 Album.create = function(title, tag) {
@@ -22,20 +23,22 @@ Album.create = function(title, tag) {
 
   request.done( function() {
     winning();
-  })
+  });
 
   request.fail( function() {
     console.log('creating album fails');
-  })
+  });
 }
 
-Album.View.buildAlbumElement = function(albumName, albumTag, albumCover) {
+Album.View = function() {}
+
+Album.View.prototype.buildAlbumElement = function(album) {
   var albumTemplate = $.trim($('#album_template').html());
-  var $album = $(albumTemplate);
-  $album.find('img').attr('src', albumCover);
-  $album.find('.tag').html(albumTag)
-  $album.find('h2').text(albumName);
-  return $album;
+  var album = $(albumTemplate);
+  album.find('img').attr('src', albumCover);
+  album.find('.tag').html(albumTag)
+  album.find('h2').text(albumName);
+  this.$album = album;
 }
 
 AlbumCollection = function(formSelector) {
