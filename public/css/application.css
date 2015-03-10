@@ -12,7 +12,6 @@ h1 {
   margin: 1em;
 }
 
-/*Why doesn't the height adjust automatically?*/
 .container {
   max-width: 900px;
   margin: 1em auto;

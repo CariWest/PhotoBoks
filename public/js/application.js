@@ -50,10 +50,14 @@ Album.View = function() {}
 var buildAlbumElement = function(albumItem) {
   var albumTemplate = $.trim($('#album-template').html());
   var $album = $(albumTemplate);
+
+  var album_url = '/albums/' + albumItem.albumId
+  debugger
+  $album.attr('href', album_url),
   $album.find('.album').attr('id', albumItem.albumId);
   $album.find('img').attr('src', albumItem.albumCover);
-  $album.find('.tag').text(albumItem.albumTag)
   $album.find('.album-title').text(albumItem.albumName);
+  $album.find('.album-title').append('<span> ' + albumItem.albumTag + '</span>')
   return $album
 }
 
@@ -67,7 +71,7 @@ AlbumCollection = function(formSelector) {
 AlbumCollection.prototype.listenForNewAlbums = function() {
   if (this.isListening) return;
   this.isListening = true;
-  this.view.createNewAlbumListener(this.makeNewAlbum.bind(this)); // undefined is not a function...
+  this.view.createNewAlbumListener(this.makeNewAlbum.bind(this));
 }
 
 AlbumCollection.prototype.makeNewAlbum = function() {
@@ -76,7 +80,7 @@ AlbumCollection.prototype.makeNewAlbum = function() {
     this.view.$elt.find('.tag').val()
   );
 
-  this.albums.push(album); // still need to do something with the album we've created after this to add it to the page
+  this.albums.push(album); // still need to do something with the album we've created after this to add it to the page?
 }
 
 AlbumCollection.View = function(formSelector) {
