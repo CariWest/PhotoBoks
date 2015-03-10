@@ -8,7 +8,7 @@ get '/albums/new' do
 end
 
 post '/albums' do
-
+  puts "inside new album post method!"
 end
 
 put '/album/:id' do

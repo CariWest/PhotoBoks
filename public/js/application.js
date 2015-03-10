@@ -3,11 +3,32 @@ var winning = function() {
 }
 
 var NEW_ALBUM_URL = '/albums/new'
+var POST_NEW_ALBUM = '/albums'
 
 var Album = function(title, tag, cover) {
   this.title = title;
   this.tag = tag;
   this.cover = cover;
+}
+
+Album.create = function() {
+  var request = $.ajax({
+    url: POST_NEW_ALBUM,
+    method: 'post',
+    data: {
+      title: this.title,
+      tag: this.tag,
+      cover: this.cover
+    }
+  });
+
+  request.done( function() {
+    winning();
+  })
+
+  request.fail( function() {
+    console.log('creating album fails');
+  })
 }
 
 Album.prototype.buildAlbumElement = function(albumName, albumTag, albumCover) {
@@ -25,7 +46,6 @@ Album.prototype.buildAlbumElement = function(albumName, albumTag, albumCover) {
 
 
 AlbumCollection = function(formSelector) {
-  debugger
   this.view = new AlbumCollection.View(formSelector);
   this.isListening = false;
   this.listenForNewAlbums();
@@ -35,11 +55,10 @@ AlbumCollection = function(formSelector) {
 AlbumCollection.prototype.listenForNewAlbums = function() {
   if (this.isListening) return;
   this.isListening = true;
-  this.view.createNewAlbumListener(this.makeNewAlbum.bind(this));
+  this.view.createNewAlbumListener(this.makeNewAlbum.bind(this)); // undefined is not a function...
 }
 
-AlbumCollection.prototype.makeNewAlbum = function(event) {
-  event.preventDefault();
+AlbumCollection.prototype.makeNewAlbum = function() {
   var album = Album.create(
     this.view.$elt.find('.title'),
     this.view.$elt.find('.tag'),
@@ -53,12 +72,11 @@ AlbumCollection.View = function(formSelector) {
   this.$elt = $(formSelector);
 }
 
-AlbumCollection.View.prototype = createNewAlbumListener = function(callback) {
-  $this.getMakeAlbumButton.on('click', callback);
-}
-
-AlbumCollection.View.getMakeAlbumButton = function() {
-  return this.$elt.find('#create-album')
+AlbumCollection.View.prototype.createNewAlbumListener = function(callback) {
+  this.$elt.on('click', '#create-album', function(event) {
+    event.preventDefault();
+    callback();
+  });
 }
 
 // controller
@@ -81,5 +99,6 @@ $(document).ready(function() {
       console.log("new album form fails to appear");
     });
   });
+
 
 });
