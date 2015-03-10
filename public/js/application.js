@@ -29,9 +29,11 @@ Album.create = function(title, tag) {
       albumCover: serverData.albumCover
     }
 
-    debugger
     $album = buildAlbumElement(album);
     $('.all-albums').prepend($album)
+
+    // remove the add albums from the page
+    $('#new-album-form').remove();
   });
 
   request.fail( function() {
