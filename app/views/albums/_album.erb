@@ -3,7 +3,13 @@
       <div class="picture">
         <img src="<%= album.cover %>" />
       </div>
-      <p class="album-title"><%= album.title %></p>
+      <p class="album-title">
+        <b><%= album.title %>: </b>
+        <span class="tag">
+          <%= album.tag.name %>
+        </span>
+      </p>
+
       <!-- need to also pass in a tag! -->
     </div>
   </a>

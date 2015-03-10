@@ -52,7 +52,7 @@ var buildAlbumElement = function(albumItem) {
   var $album = $(albumTemplate);
   $album.find('.album').attr('id', albumItem.albumId);
   $album.find('img').attr('src', albumItem.albumCover);
-  $album.find('.tag').html(albumItem.albumTag)
+  $album.find('.tag').text(albumItem.albumTag)
   $album.find('.album-title').text(albumItem.albumName);
   return $album
 }
