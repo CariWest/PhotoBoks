@@ -1,4 +1,13 @@
-<div class="container single-album">
-  <h2><%= album.title %>!</h2>
-  <p><%= album.tag.name %></p>
+<div class="container">
+  <div class="album-header">
+    <h2><%= album.title %>!</h2>
+    <p><%= album.tag.name %></p>
+  </div>
 </div>
+
+<div class="container all-album-photos">
+  <% album.photos.each do |photo| %>
+    <%= erb :"/albums/_photo", locals: { photo: photo } %>
+  <% end %>
+</div>
+
