@@ -1,20 +1,16 @@
 helpers do
   def add_photos_to_database_if_new_and_contain_tag(desired_tag)
-    # album = Album.find(params[:id])
-    # tag = album.tag.name
     user = get_current_user(session[:id])
     instagram_id = user.instagram_id
 
     response = HTTParty.get("https://api.instagram.com/v1/users/#{instagram_id}/media/recent/?client_id=#{ENV['INSTAGRAM_CLIENT_ID']}")
     puts "httparty get request works"
-    # response_data = JSON.parse(response.body)
-    # photo_data = response_data["data"]
 
     photo_data = JSON.parse(response.body)["data"]
 
     count = 0
     photo_data.each do |individual_photo|
-      next if photo_exists_in_db?(individual_photo["link"])
+      next if photo_exists_in_db?(get_URL(individual_photo))
 
       all_tags = individual_photo["tags"]
       type = individual_photo["type"]
@@ -42,13 +38,6 @@ helpers do
   def add_user_photo_to_db(user_id, individual_photo)
     Photo.create!(
       url:                get_URL(individual_photo),
-
-      # "#{individual_photo["images"]["standarad_resolution"]["url"]}")
-
-      # I should actually be pulling
-      # individual_photo["images"]["standarad_resolution"]["url"]
-
-
       # instagram_photo_id: "#{individual_photo['id']}",
       # caption:            "#{individual_photo['caption']}",
       user_id:            user_id
@@ -79,12 +68,11 @@ helpers do
   end
 
   def get_URL(photo_data)
-    p images = photo_data["images"]
-    p standard_image = images["standard_resolution"]
-    p standard_image["url"]
+    images = photo_data["images"]
+    standard_image = images["standard_resolution"]
+    standard_image["url"]
     return standard_image["url"]
   end
 
 end
 
-# PHOTO TAGS ARE ONLY BEING CREATED ONCE
