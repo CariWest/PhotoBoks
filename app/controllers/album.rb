@@ -22,8 +22,9 @@ post '/albums' do
 end
 
 get '/albums/:id' do
-  add_photos_when_album_created(params[:id])
-
+  album = Album.find(params[:id])
+  p tag_name = album.tag.name
+  add_photos_to_database_if_new_and_contain_tag(tag_name)
 
   # erb :"albums/index", locals: { album: album }
 end
