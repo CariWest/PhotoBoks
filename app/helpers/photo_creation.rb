@@ -1,8 +1,4 @@
 helpers do
-  def get_current_user(id)
-    return User.find(id)
-  end
-
   def add_photos_to_database_if_new_and_contain_tag(desired_tag)
     # album = Album.find(params[:id])
     # tag = album.tag.name
@@ -56,11 +52,6 @@ helpers do
     Photo.find_by(url: photo_url)
   end
 
-  def find_or_create_tag(tag_name)
-    return if Tag.find_by(name: tag_name)
-    Tag.create!(name: tag_name)
-  end
-
   def create_photo_tag_relationship(photo_id, tag)
     PhotoTag.create(tag_id: tag.id, photo_id: photo_id)
   end
@@ -77,4 +68,5 @@ helpers do
     tag = Tag.find(tag_id)
     p tag.photos
   end
+
 end
