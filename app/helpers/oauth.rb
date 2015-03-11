@@ -8,5 +8,13 @@ helpers do
     redirect INSTAGRAM_AUTH_URL
   end
 
+  def logged_in?
+  end
+
+  def get_user_token(user_id)
+    user = User.find(user_id)
+    return user.access_token
+  end
+
 end
 
