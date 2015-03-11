@@ -32,7 +32,8 @@ helpers do
       all_tags = individual_photo["tags"]
       type = individual_photo["type"]
       if photo_is_image?(type) && photo_contains_tag?(desired_tag, all_tags)
-        photo = add_user_photo_to_db(user.id, individual_photo)
+        add_user_photo_to_db(user.id, individual_photo)
+        photo = Photo.all.last
         add_all_tags_for_photo(photo.id, all_tags)
       end
     end
@@ -64,12 +65,13 @@ helpers do
   end
 
   def find_or_create_tag(tag_name)
-    return if Tag.find_by(tag: tag_name)
+    return if Tag.find_by(name: tag_name)
     Tag.create!(name: tag_name)
   end
 
   def create_photo_tag_relationship(photo_id, tag_name)
-    tag = find_or_create_tag(tag_name)
+    find_or_create_tag(tag_name)
+    tag = Tag.all.last
     PhotoTag.create(tag_id: tag.id, photo_id: photo_id)
   end
 
