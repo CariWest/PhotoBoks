@@ -6,6 +6,10 @@ get '/user' do
   end
 end
 
+get '/user/login' do
+  erb :"user/login"
+end
+
 get '/instagram_auth' do
   redirect "https://api.instagram.com/oauth/authorize/?client_id=#{ENV['INSTAGRAM_CLIENT_ID']}&redirect_uri=http://127.0.0.1:9393/auth&response_type=code"
 end
@@ -40,4 +44,9 @@ get '/auth' do
   else
     puts "user authorization fails"
   end
+end
+
+get '/user/logout' do
+  session[:id] = nil
+  redirect '/'
 end

@@ -1,4 +1,5 @@
 get '/' do
-  erb :index
+  albums = Album.all
+  erb :index, locals: { albums: albums }
 end
 
