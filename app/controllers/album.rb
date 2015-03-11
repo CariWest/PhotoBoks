@@ -8,9 +8,9 @@ get '/albums/new' do
 end
 
 post '/albums' do
-  p tag = find_or_create_tag(params[:tag])
-  p user = get_current_user(session[:id])
-  p params[:title]
+  tag = find_or_create_tag(params[:tag])
+  user = get_current_user(session[:id])
+  params[:title]
 
   album = Album.new(title: params[:title], user_id: user.id, tag_id: tag.id)
   if album.save
@@ -27,7 +27,17 @@ get '/albums/:id' do
   tag = album.tag
 
   # should this be in the post method...?
-  add_photos_to_database_if_new_and_contain_tag(tag.name)
+  if album.populated == false
+    add_photos_to_database_if_new_and_contain_tag(tag.name)
+    album.populated = true
+    album.save
+  end
+
+  album.cover = album.photos.first.url
+  album.save
+
+  # add logic for when a new photo has been added to the mix...
+
   # all_photos = get_photos_with_tag(tag.id)
 
   erb :"albums/index", locals: { album: album }
@@ -35,12 +45,12 @@ end
 
 get '/albums/:id/edit' do
   album = Album.find(params[:id])
-  form = erb :"/albums/edit", locals: { album: album }, layout: false
-  content_type :json
-  { form: form  }.to_json
-end
+    form = erb :"/albums/edit", locals: { album: album }, layout: false
+    content_type :json
+    { form: form  }.to_json
+  end
 
-put '/albums/:id' do
+  put '/albums/:id' do
 end
 
 delete '/albums/:id' do
