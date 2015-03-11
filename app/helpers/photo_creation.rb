@@ -21,7 +21,8 @@ helpers do
       if photo_is_image?(type) && photo_contains_tag?(desired_tag, all_tags)
         add_user_photo_to_db(user.id, individual_photo)
         photo = Photo.all.last
-        add_all_tags_for_photo(photo.id, all_tags)
+        all_tags = get_all_tags(all_tags)
+        set_tag_relationships_for_photo(photo, all_tags)
       end
       count += 1
     end
@@ -52,16 +53,21 @@ helpers do
     Photo.find_by(url: photo_url)
   end
 
-  def create_photo_tag_relationship(photo_id, tag)
-    p tag
-    PhotoTag.create(tag_id: tag.id, photo_id: photo_id)
+  def create_photo_tag_relationship(photo_id, tag_id)
+    PhotoTag.create(tag_id: tag_id, photo_id: photo_id)
   end
 
-  def add_all_tags_for_photo(photo_id, all_tags)
+  def get_all_tags(all_tags)
     return if all_tags.empty?
-    all_tags.each do |tag_name|
-      p tag = find_or_create_tag(tag_name)
-      create_photo_tag_relationship(photo_id, tag)
+    tags = all_tags.map do |tag_name|
+      find_or_create_tag(tag_name)
+    end
+    return tags
+  end
+
+  def set_tag_relationships_for_photo(photo, all_tags)
+    all_tags.each do |tag|
+      create_photo_tag_relationship(photo.id, tag.id)
     end
   end
 
