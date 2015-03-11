@@ -21,10 +21,12 @@ require "sinatra/reloader" if development?
 require 'erb'
 
 require 'dotenv'
-Dontenv.load
+Dotenv.load
 
 require 'hirb'
 Hirb.enable
+
+require 'httparty'
 
 # Some helper constants for path-centric logic
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
