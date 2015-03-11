@@ -4,7 +4,16 @@ helpers do
   end
 
   def find_or_create_tag(tag_name)
-    return if Tag.find_by(name: tag_name)
-    Tag.create!(name: tag_name)
+    if Tag.find_by(name: tag_name)
+      @tag = Tag.find_by(name: tag_name)
+    else
+      @tag = Tag.create!(name: tag_name)
+    end
+    return @tag
+
+    # return if Tag.find_by(name: tag_name)
+    # Tag.create!(name: tag_name)
+    # return Tag.last
   end
 end
+

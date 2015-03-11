@@ -53,20 +53,18 @@ helpers do
   end
 
   def create_photo_tag_relationship(photo_id, tag)
+    p tag
     PhotoTag.create(tag_id: tag.id, photo_id: photo_id)
   end
 
   def add_all_tags_for_photo(photo_id, all_tags)
     return if all_tags.empty?
     all_tags.each do |tag_name|
-      tag = find_or_create_tag(tag_name)
+      p tag = find_or_create_tag(tag_name)
       create_photo_tag_relationship(photo_id, tag)
     end
   end
 
-  def get_photos_with_tag(tag_id)
-    tag = Tag.find(tag_id)
-    p tag.photos
-  end
-
 end
+
+# PHOTO TAGS ARE ONLY BEING CREATED ONCE
