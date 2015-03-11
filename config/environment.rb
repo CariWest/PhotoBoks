@@ -20,6 +20,9 @@ require "sinatra/reloader" if development?
 
 require 'erb'
 
+require 'dotenv'
+Dontenv.load
+
 require 'hirb'
 Hirb.enable
 
