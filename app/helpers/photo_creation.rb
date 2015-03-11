@@ -41,7 +41,14 @@ helpers do
 
   def add_user_photo_to_db(user_id, individual_photo)
     Photo.create!(
-      url:                get_URL("#{individual_photo['link']}"),
+      url:                get_URL(individual_photo),
+
+      # "#{individual_photo["images"]["standarad_resolution"]["url"]}")
+
+      # I should actually be pulling
+      # individual_photo["images"]["standarad_resolution"]["url"]
+
+
       # instagram_photo_id: "#{individual_photo['id']}",
       # caption:            "#{individual_photo['caption']}",
       user_id:            user_id
@@ -69,6 +76,13 @@ helpers do
     all_tags.each do |tag|
       create_photo_tag_relationship(photo.id, tag.id)
     end
+  end
+
+  def get_URL(photo_data)
+    p images = photo_data["images"]
+    p standard_image = images["standard_resolution"]
+    p standard_image["url"]
+    return standard_image["url"]
   end
 
 end

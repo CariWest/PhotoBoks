@@ -17,9 +17,5 @@ helpers do
     # Tag.create!(name: tag_name)
     # return Tag.last
   end
-
-  def get_URL(string)
-    return URI.extract(string).first
-  end
 end
 
