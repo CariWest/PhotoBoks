@@ -16,7 +16,6 @@ get '/auth' do
   response = HTTParty.post('https://api.instagram.com/oauth/access_token', {
     body: {
       client_id:      ENV['INSTAGRAM_CLIENT_ID'],
-       #maybe need to pass as string?
       client_secret:  ENV['INSTAGRAM_SECRET_KEY'],
       grant_type:     "authorization_code",
       redirect_uri:   "http://127.0.0.1:9393/auth",
