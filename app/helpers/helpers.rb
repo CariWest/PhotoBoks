@@ -5,7 +5,7 @@ helpers do
     if tag
       return tag
     else
-      return Tag.create(name: tag_name)
+      return Tag.create!(name: tag_name)
     end
   end
 

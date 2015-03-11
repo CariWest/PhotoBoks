@@ -4,7 +4,6 @@ var winning = function() {
 
 var NEW_ALBUM_URL = '/albums/new'
 var POST_NEW_ALBUM = '/albums'
-var
 
 var Album = function(title, tag) {
   this.title = title;
@@ -101,7 +100,7 @@ $(document).ready(function() {
   var controller;
 
   // could abstract this away a little better...?... UGH.
-  $('.new-album').on('click', function(event) {
+  $('.add-album').on('click', function(event) {
     event.preventDefault();
 
     var request = $.ajax({
@@ -155,16 +154,8 @@ $(document).ready(function() {
 
     request.fail( function(data) {
       console.log("edit album form fails to appear")
-    })
-  })
-
-  $('.insta-login').on('click', function(event) {
-    event.preventDefault();
-
-    var request = $.ajax(
-      url: INSTAGRAM_AUTH_URL
-    );
-  })
+    });
+  });
 
 });
 
