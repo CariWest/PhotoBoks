@@ -1,3 +1,5 @@
+require "uri"
+
 helpers do
   def get_current_user(id)
     return User.find(id)
@@ -14,6 +16,10 @@ helpers do
     # return if Tag.find_by(name: tag_name)
     # Tag.create!(name: tag_name)
     # return Tag.last
+  end
+
+  def get_URL(string)
+    return URI.extract(string).first
   end
 end
 

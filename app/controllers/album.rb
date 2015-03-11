@@ -28,9 +28,9 @@ get '/albums/:id' do
 
   # should this be in the post method...?
   add_photos_to_database_if_new_and_contain_tag(tag.name)
-  all_photos = get_photos_with_tag(tag.id)
+  # all_photos = get_photos_with_tag(tag.id)
 
-  # erb :"albums/index", locals: { album: album }
+  erb :"albums/index", locals: { album: album }
 end
 
 get '/albums/:id/edit' do

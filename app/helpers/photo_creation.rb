@@ -41,7 +41,7 @@ helpers do
 
   def add_user_photo_to_db(user_id, individual_photo)
     Photo.create!(
-      url:                "#{individual_photo['link']}",
+      url:                get_URL("#{individual_photo['link']}"),
       # instagram_photo_id: "#{individual_photo['id']}",
       # caption:            "#{individual_photo['caption']}",
       user_id:            user_id
