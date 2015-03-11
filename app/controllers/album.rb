@@ -22,6 +22,7 @@ post '/albums' do
 end
 
 get '/albums/:id' do
+  add_photos_when_album_created(params[:id])
 
 
   # erb :"albums/index", locals: { album: album }

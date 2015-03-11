@@ -21,8 +21,15 @@ helpers do
 
     response = HTTParty.get("https://api.instagram.com/v1/users/#{instagram_id}/media/recent/?client_id=#{ENV['INSTAGRAM_CLIENT_ID']}")
 
-    p response_data = JSON.parse(response.body)
+    response_data = JSON.parse(response.body)
 
+    puts "printing response data"
+    # count = 0
+    response_data.each do |photo_data|
+      # return if count == 5
+      puts photo_data
+      # count += 1
+    end
 
 
     # MVP things to grab:
