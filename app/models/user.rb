@@ -1,8 +1,8 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  validates :username, :profile_picture, :instagram_id, presence: true
-  validates :username, :instagram_id, uniqueness: true
+  validates :username, :profile_picture, :instagram_id, :access_token, presence: true
+  validates :username, :instagram_id, :access_token, uniqueness: true
 
   has_many :albums
   has_many :photos

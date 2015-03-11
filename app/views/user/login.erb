@@ -7,19 +7,5 @@
     <% end %>
   </ul>
 
-  <p>Sign In with Instagram</p>
-  <form action="/user/register/instagram" method="post">
-    <button class="insta-login">Register with Instagram!</button>
-  </form>
-
-  <form action="/user/login" method="post">
-    <p>
-      <input type="text" name="username" placeholder="username" value="<%= user.username %>"/>
-    </p>
-    <p>
-      <input type="password" name="password" placeholder="password" />
-    </p>
-
-    <input type="submit" value="Log In" />
-  </form>
+  <p><a href="/instagram_auth">Sign In with Instagram</a></p>
 </div>

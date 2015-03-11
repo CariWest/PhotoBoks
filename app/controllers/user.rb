@@ -6,7 +6,7 @@ get '/user' do
   end
 end
 
-get '/instagram_register' do
+get '/instagram_auth' do
   redirect "https://api.instagram.com/oauth/authorize/?client_id=#{ENV['INSTAGRAM_CLIENT_ID']}&redirect_uri=http://127.0.0.1:9393/auth&response_type=code"
 end
 
@@ -25,5 +25,24 @@ get '/auth' do
   })
 
   p response_data = JSON.parse(response.body)
-  200
+  p access_token = response_data["access_token"]
+  p user = response_data["user"]
+
+  user = User.new(
+    username: user["username"],
+    full_name: user["full_name"],
+    bio: user["bio"],
+    website: user["website"],
+    profile_picture: user["profile_picture"],
+    instagram_id: user["id"],
+    access_token: access_token
+  )
+
+  if user.save
+    status 200
+    session[:id] = user.id
+    redirect '/user', locals: { user: usere }
+  else
+    puts "save failed"
+  end
 end
