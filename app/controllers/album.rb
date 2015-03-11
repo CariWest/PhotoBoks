@@ -17,13 +17,14 @@ post '/albums' do
     { albumName: album.title, albumTag: album.tag.name, albumCover: album.cover, albumId: album.id  }.to_json
   else
     status 400
-    # should render errors on page
+    # would like to render errors on page
   end
 end
 
 get '/albums/:id' do
-  album = Album.find(params[:id])
-  erb :"albums/index", locals: { album: album }
+
+
+  # erb :"albums/index", locals: { album: album }
 end
 
 get '/albums/:id/edit' do
