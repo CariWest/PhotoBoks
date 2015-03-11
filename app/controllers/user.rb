@@ -24,30 +24,21 @@ get '/auth' do
     }
   })
 
-  p response_data = JSON.parse(response.body)
-  p access_token = response_data["access_token"]
-  p user_data = response_data["user"]
+  response_data = JSON.parse(response.body)
+  access_token = response_data["access_token"]
+  user_data = response_data["user"]
 
-  if user = User.find_by(username: user_data["username"])
+  user = get_user(user_data["username"])
+
+  if user == nil
+    user = create_user(user_data, access_token)
+  end
+
+  if user
+    status 200
     session[:id] = user.id
     redirect '/user', locals: { user: user }
   else
-    user = User.new(
-      username: user_data["username"],
-      full_name: user_data["full_name"],
-      bio: user_data["bio"],
-      website: user_data["website"],
-      profile_picture: user_data["profile_picture"],
-      instagram_id: user_data["id"],
-      access_token: access_token
-    )
-
-    if user.save
-      status 200
-      session[:id] = user.id
-      redirect '/user', locals: { user: user }
-    else
-      puts "save failed"
-    end
+    puts "user authorization fails"
   end
 end

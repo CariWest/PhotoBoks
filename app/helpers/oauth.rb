@@ -4,11 +4,20 @@ INSTAGRAM_AUTH_URL = 'https://api.instagram.com/oauth/authorize/?client_id=accfe
 
 helpers do
 
-  def log_user_in
-    redirect INSTAGRAM_AUTH_URL
+  def get_user(username)
+    return User.find_by(username: username)
   end
 
-  def logged_in?
+  def create_user(user_data, access_token)
+    return User.create!(
+      username: user_data["username"],
+      full_name: user_data["full_name"],
+      bio: user_data["bio"],
+      website: user_data["website"],
+      profile_picture: user_data["profile_picture"],
+      instagram_id: user_data["id"],
+      access_token: access_token
+    )
   end
 
   def get_user_token(user_id)
