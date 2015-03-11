@@ -52,7 +52,6 @@ var buildAlbumElement = function(albumItem) {
   var $album = $(albumTemplate);
 
   var album_url = '/albums/' + albumItem.albumId
-  debugger
   $album.attr('href', album_url),
   $album.find('.album').attr('id', albumItem.albumId);
   $album.find('img').attr('src', albumItem.albumCover);
@@ -146,7 +145,6 @@ $(document).ready(function() {
     });
 
     request.done( function(data) {
-      debugger
       $(data.form).insertAfter('.welcome');
       // couldn't find album with 'id' = :id???
       // need to work with the controller for this function?

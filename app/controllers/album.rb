@@ -8,8 +8,9 @@ get '/albums/new' do
 end
 
 post '/albums' do
-  tag = get_tag(params[:tag])
-  user = get_current_user(session[:id])
+  p tag = find_or_create_tag(params[:tag])
+  p user = get_current_user(session[:id])
+  p params[:title]
 
   album = Album.new(title: params[:title], user_id: user.id, tag_id: tag.id)
   if album.save
@@ -23,8 +24,11 @@ end
 
 get '/albums/:id' do
   album = Album.find(params[:id])
-  p tag_name = album.tag.name
-  add_photos_to_database_if_new_and_contain_tag(tag_name)
+  tag = album.tag
+
+  # should this be in the post method...?
+  add_photos_to_database_if_new_and_contain_tag(tag.name)
+  all_photos = get_photos_with_tag(tag.id)
 
   # erb :"albums/index", locals: { album: album }
 end

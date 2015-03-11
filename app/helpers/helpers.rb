@@ -1,14 +1,4 @@
 helpers do
-
-  def get_tag(tag_name)
-    tag =Tag.where(name: tag_name).first
-    if tag
-      return tag
-    else
-      return Tag.create!(name: tag_name)
-    end
-  end
-
   def get_current_user(id)
     return User.find(id)
   end
@@ -16,7 +6,7 @@ helpers do
   def add_photos_to_database_if_new_and_contain_tag(desired_tag)
     # album = Album.find(params[:id])
     # tag = album.tag.name
-    user = User.find(session[:id])
+    user = get_current_user(session[:id])
     instagram_id = user.instagram_id
 
     response = HTTParty.get("https://api.instagram.com/v1/users/#{instagram_id}/media/recent/?client_id=#{ENV['INSTAGRAM_CLIENT_ID']}")
@@ -26,6 +16,7 @@ helpers do
 
     photo_data = JSON.parse(response.body)["data"]
 
+    count = 0
     photo_data.each do |individual_photo|
       next if photo_exists_in_db?(individual_photo["link"])
 
@@ -36,6 +27,7 @@ helpers do
         photo = Photo.all.last
         add_all_tags_for_photo(photo.id, all_tags)
       end
+      count += 1
     end
   end
 
@@ -69,23 +61,20 @@ helpers do
     Tag.create!(name: tag_name)
   end
 
-  def create_photo_tag_relationship(photo_id, tag_name)
-    find_or_create_tag(tag_name)
-    tag = Tag.all.last
+  def create_photo_tag_relationship(photo_id, tag)
     PhotoTag.create(tag_id: tag.id, photo_id: photo_id)
   end
 
   def add_all_tags_for_photo(photo_id, all_tags)
     return if all_tags.empty?
-    all_tags.each { |tag_name| create_photo_tag_relationship(photo_id, tag_name) }
+    all_tags.each do |tag_name|
+      tag = find_or_create_tag(tag_name)
+      create_photo_tag_relationship(photo_id, tag)
+    end
   end
 
-  # MVP things to grab:
-  # photo id, which is response_data["id"]
-  # tags: response_data["tags"]
-  # url: response_data["link"]
-  # caption: response_data["caption"]["text"]
-  # only images - type: response_data["type"] == "image"
-  # Extra things to eventually grab:
-  # likes
+  def get_photos_with_tag(tag_id)
+    tag = Tag.find(tag_id)
+    p tag.photos
+  end
 end
