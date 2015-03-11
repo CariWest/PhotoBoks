@@ -1,9 +1,14 @@
-  <a href="#">
-    <div class="album">
+  <a href="/albums/<%= album.id %>">
+    <div class="album" id="<%= album.id %>">
       <div class="picture">
         <img src="<%= album.cover %>" />
       </div>
-      <p class="album-title"><%= album.title %></p>
-      <!-- need to also pass in a tag! -->
+      <p class="album-title">
+        <b><%= album.title %>: </b>
+        <span class="tag">
+          <%= album.tag.name %>
+        </span>
+      </p>
+
     </div>
   </a>

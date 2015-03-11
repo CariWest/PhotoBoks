@@ -4,6 +4,7 @@ var winning = function() {
 
 var NEW_ALBUM_URL = '/albums/new'
 var POST_NEW_ALBUM = '/albums'
+var
 
 var Album = function(title, tag) {
   this.title = title;
@@ -21,17 +22,22 @@ Album.create = function(title, tag) {
     }
   });
 
+  // i would like to refactor this method so it's more straightforward
+  // would probably mean refactoring the buildAlbumElement method to be incorporated into the view?
   request.done( function(serverData) {
-    winning();
+    console.log(serverData);
     var album = {
       albumName: serverData.albumName,
       albumTag: serverData.albumTag,
-      albumCover: serverData.albumCover
+      albumCover: serverData.albumCover,
+      albumId: serverData.albumId
     }
 
-    debugger
     $album = buildAlbumElement(album);
     $('.all-albums').prepend($album)
+
+    // remove the add albums from the page
+    $('#new-album-form').remove();
   });
 
   request.fail( function() {
@@ -45,9 +51,14 @@ Album.View = function() {}
 var buildAlbumElement = function(albumItem) {
   var albumTemplate = $.trim($('#album-template').html());
   var $album = $(albumTemplate);
+
+  var album_url = '/albums/' + albumItem.albumId
+  debugger
+  $album.attr('href', album_url),
+  $album.find('.album').attr('id', albumItem.albumId);
   $album.find('img').attr('src', albumItem.albumCover);
-  $album.find('.tag').html(albumItem.albumTag)
-  $album.find('h2').text(albumItem.albumName);
+  $album.find('.album-title').text(albumItem.albumName);
+  $album.find('.album-title').append('<span> ' + albumItem.albumTag + '</span>')
   return $album
 }
 
@@ -61,7 +72,7 @@ AlbumCollection = function(formSelector) {
 AlbumCollection.prototype.listenForNewAlbums = function() {
   if (this.isListening) return;
   this.isListening = true;
-  this.view.createNewAlbumListener(this.makeNewAlbum.bind(this)); // undefined is not a function...
+  this.view.createNewAlbumListener(this.makeNewAlbum.bind(this));
 }
 
 AlbumCollection.prototype.makeNewAlbum = function() {
@@ -70,7 +81,7 @@ AlbumCollection.prototype.makeNewAlbum = function() {
     this.view.$elt.find('.tag').val()
   );
 
-  this.albums.push(album); // still need to do something with the album we've created after this to add it to the page
+  this.albums.push(album); // still need to do something with the album we've created after this to add it to the page?
 }
 
 AlbumCollection.View = function(formSelector) {
@@ -87,6 +98,9 @@ AlbumCollection.View.prototype.createNewAlbumListener = function(callback) {
 // controller
 $(document).ready(function() {
 
+  var controller;
+
+  // could abstract this away a little better...?... UGH.
   $('.new-album').on('click', function(event) {
     event.preventDefault();
 
@@ -97,7 +111,7 @@ $(document).ready(function() {
 
     request.done( function(data) {
       $(data.form).insertAfter('.welcome'); // should abstract this jquery away...
-      var controller = new AlbumCollection('#new-album-form');
+      controller = new AlbumCollection('#new-album-form');
     });
 
     request.fail( function(data) {
@@ -105,5 +119,54 @@ $(document).ready(function() {
     });
   });
 
+  $('.delete').on('click', function(event) {
+    event.preventDefault();
+
+    if (confirm("Are you sure you want to delete?")) {
+      var request = $.ajax({
+        url: $(this).attr('href'),
+        type: 'delete'
+      });
+
+      request.done( function(data) {
+        location.href="/user";
+      });
+
+      request.fail( function(data) {
+        console.log("delete fails");
+      });
+    }
+  });
+
+  $('.edit').on('click', function(event) {
+    event.preventDefault();
+
+    var request = $.ajax({
+      url: $(this).attr('href'),
+      method: 'get'
+    });
+
+    request.done( function(data) {
+      debugger
+      $(data.form).insertAfter('.welcome');
+      // couldn't find album with 'id' = :id???
+      // need to work with the controller for this function?
+    });
+
+    request.fail( function(data) {
+      console.log("edit album form fails to appear")
+    })
+  })
+
+  $('.insta-login').on('click', function(event) {
+    event.preventDefault();
+
+    var request = $.ajax(
+      url: INSTAGRAM_AUTH_URL
+    );
+  })
 
 });
+
+// when page loads, should I be creating a collection of albums which already exist?
+// it would make sense, so that I would have access to the albums which already exist...

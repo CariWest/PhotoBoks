@@ -4,7 +4,7 @@ class Album < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :tag
-  has_many :photos, through: :tags
+  has_many :photos, through: :tag
   has_many :authorized_users, through: :authorized_user
 
 end

@@ -17,6 +17,8 @@ gem 'shotgun'
 
 gem 'bcrypt'
 
+gem 'httparty'
+
 group :test do
   gem 'shoulda-matchers'
   gem 'rack-test'
@@ -28,5 +30,6 @@ group :test, :development do
   gem 'factory_girl'
   gem 'faker'
   gem 'hirb'
+  gem 'dotenv' #, :groups => [:development]
 end
 

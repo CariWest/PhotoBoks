@@ -1,0 +1,12 @@
+<div class="container" id="edit-album-form">
+  <form action="/albums/:id" method: "post">
+    <input type="hidden" name="_method" value="put" />
+    <p>
+      <input class="title" type="text" name="title" value="<%= album.title %>" />
+    </p>
+    <p>
+      <input class="tag" type="text" name="tag" value="<%= album.tag.name %>" />
+    </p>
+    <input type="submit" value="Save Changes" />
+  </form>
+</div>

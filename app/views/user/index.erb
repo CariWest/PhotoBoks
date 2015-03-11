@@ -1,6 +1,5 @@
 <div class="container welcome">
   <h2>welcome, <%= user.username %>!</h2>
-  <p><%= user.email %></p>
 </div>
 
 <div class="container albums">
@@ -11,7 +10,7 @@
     </h3>
   </div>
 
-  <div class="all-albums">
+  <div class="many-photos">
     <% albums.each do |album| %>
       <%= erb :"/albums/_album", locals: { album: album } %>
     <% end %>
@@ -20,12 +19,17 @@
 </div>
 
 <div id="album-template" style="display: none;">
-  <a href="#">
-    <div class="album">
+  <a>
+    <div class="album" id="#">
       <div class="picture">
         <img src="#" />
       </div>
-      <p class="album-title">Album Title</p>
+      <p class="album-title">
+        <b>Album Title: </b>
+        <span class="tag">
+          Album Tag
+        </span>
+      </p>
     </div>
   </a>
 </div>

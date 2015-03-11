@@ -12,17 +12,13 @@
     </ul>
   <% end %>
 
-  <form action="/user/register" method="post">
-    <p>
-      <input type="text" name="user[username]" placeholder="Username" value="<%= user.username %>" />
-    </p>
-    <p>
-      <input type="text" name="user[email]" placeholder="Email" value="<%= user.email %>" />
-    </p>
-    <p>
-      <input type="password" name="user[password]" placeholder="Password" />
-    </p>
+<!-- Would prefer to be saving this url into a variable & redirecting that way... -->
+<!-- But this works for now. -->
+  <p><a href="/instagram_auth">Register with Instagram (recommended)</a></p>
+<!--   <form action="/user/register/instagram" method="post">
+    <button class="insta-login">Register</button>
+  </form> -->
 
-    <input type="submit" value="Register" />
-  </form>
+
+
 </div>
