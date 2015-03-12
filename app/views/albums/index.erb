@@ -16,7 +16,7 @@
     </h3>
   </div>
 
-  <div class="many-photos">
+  <div class="scrapbook-container">
     <% album.photos.each do |photo| %>
       <%= erb :"/albums/_photo", locals: { photo: photo } %>
     <% end %>
