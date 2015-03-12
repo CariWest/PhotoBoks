@@ -1,6 +1,3 @@
-get '/albums' do
-end
-
 get '/albums/new' do
   form = erb :"albums/new", layout: false
   content_type :json
@@ -25,11 +22,7 @@ end
 get '/albums/:id' do
   album = Album.find(params[:id])
   tag = album.tag
-  can_edit = false
-
-  if session[:id] == album.user.id
-    can_edit = true
-  end
+  can_edit = (session[:id] == album.user.id)
 
   if album.populated == false
     add_photos_to_database_if_new_and_contain_tag(tag.name)
@@ -44,7 +37,9 @@ get '/albums/:id' do
     album.save
   end
 
-  erb :"albums/index", locals: { album: album, can_edit: can_edit }
+  sorted_photos = get_sorted_photos(album.id)
+
+  erb :"albums/index", locals: { album: album, can_edit: can_edit, photos: sorted_photos }
 end
 
 get '/albums/:id/edit' do

@@ -1,14 +1,12 @@
 helpers do
 
-  def get_media_from_IG
+  def get_media_from_IG(instagram_id)
     return HTTParty.get("https://api.instagram.com/v1/users/#{instagram_id}/media/recent/?client_id=#{ENV['INSTAGRAM_CLIENT_ID']}")
   end
 
   def add_photos_to_database_if_new_and_contain_tag(desired_tag)
     user = get_current_user(session[:id])
-    instagram_id = user.instagram_id
-
-    response = get_media_from_IG
+    response = get_media_from_IG(user.instagram_id)
     photo_data = JSON.parse(response.body)["data"]
 
     photo_data.each do |individual_photo|
@@ -38,11 +36,12 @@ helpers do
 
   def add_user_photo_to_db(user_id, individual_photo)
     photo = Photo.create!(
-      user_id:                  user_id
+      user_id:                  user_id,
       url:                      get_URL(individual_photo),
-      caption:                  individual_photo['caption']['text'],
+      # throwing error for really long captions...
+      # caption:                  individual_photo['caption']['text'],
       instagram_url:            individual_photo['link'],
-      instagram_creation_time:  individual_photo['created_time'],
+      instagram_creation_time:  individual_photo['created_time']
     )
     return photo
   end
@@ -78,8 +77,7 @@ helpers do
 
   def check_for_new_photos_with_tag(desired_tag)
     user = get_current_user(session[:id])
-    instagram_id = user.instagram_id
-    response = get_media_from_IG
+    response = get_media_from_IG(user.instagram_id)
 
     photo_data = JSON.parse(response.body)["data"]
 
