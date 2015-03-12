@@ -25,6 +25,11 @@ end
 get '/albums/:id' do
   album = Album.find(params[:id])
   tag = album.tag
+  can_edit = false
+
+  if session[:id] == album.user.id
+    can_edit = true
+  end
 
   if album.populated == false
     add_photos_to_database_if_new_and_contain_tag(tag.name)
@@ -39,7 +44,7 @@ get '/albums/:id' do
     album.save
   end
 
-  erb :"albums/index", locals: { album: album }
+  erb :"albums/index", locals: { album: album, can_edit: can_edit }
 end
 
 get '/albums/:id/edit' do
