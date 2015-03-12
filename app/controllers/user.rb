@@ -1,6 +1,6 @@
 get '/user' do
   user = User.find(session[:id])
-  albums = user.albums.sort_by { |album| album.updated_at }.reverse
+  p albums = user.albums.sort_by { |album| album.updated_at }.reverse
   if user
     erb :"user/index", locals: { user: user, albums: albums}
   end
