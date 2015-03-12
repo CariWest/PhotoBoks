@@ -1,0 +1,51 @@
+* {
+  font-family: "Comfortaa";
+  font-weight: 400;
+}
+
+h1 {
+  float: left;
+  font-weight: 700;
+  font-size: 400%;
+  margin: 16px 0px;
+}
+
+body {
+  background-color: #EBE9DC;
+}
+
+.left {
+  float: left;
+  margin: 1em;
+}
+
+.right {
+  float: right;
+  margin: 1em;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 1em;
+}
+
+.pad-right {
+  padding-right: .5em;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+.banner {
+  height: 150px;
+  display: flex;
+  background-color: #9FB03E;
+}
+
+.light-text {
+  color: #EBE9DC;
+}
+

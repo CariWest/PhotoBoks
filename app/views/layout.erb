@@ -10,7 +10,12 @@
   <!--
     application.css is where you put your styles
   -->
-  <link rel="stylesheet" href="/css/application.css">
+  <link rel="stylesheet" href="/css/default.css">
+  <link rel="stylesheet" href="/css/navigation.css">
+  <link rel="stylesheet" href="/css/scrapbook.css">
+  <link rel="stylesheet" href="/css/polaroids.css">
+
+  <link href='http://fonts.googleapis.com/css?family=Comfortaa:400,700' rel='stylesheet' type='text/css'>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="/js/application.js"></script>
@@ -18,14 +23,23 @@
   <title>PhotoBox</title>
 </head>
 <body>
-  <div class="nav-bar">
-    <h3 class="left"><a href="/">Home</a></h3>
+  <div class="nav-bar nav-bar-flex">
+    <h2 class="left light-text"><a class="light-text" href="/">Home</a></h2>
 
     <% if session[:id] %>
-      <h3 class="right"><a href="/user/logout">Log Out</a></h3>
-      <h3 class="right"><a href="/user">My Account</a></h3>
+      <div>
+        <h2 class="right"><a class="light-text" href="/user/logout">Log Out</a></h2>
+        <h2 class="right"><a class="light-text" href="/user">My Account</a></h2>
+      </div>
     <% else %>
-      <h3 class="right"><a href="/user/login">Log In</a></h3>
+      <a href="/instagram_auth">
+        <div class="vertical-center pad-right">
+          <h2 class="right">
+            Log In
+          </h2>
+          <img class="login-button" src="https://cdn0.iconfinder.com/data/icons/shift-logotypes/32/Instagram-128.png" />
+        </div>
+      </a>
     <% end %>
   </div>
 

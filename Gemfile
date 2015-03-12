@@ -30,6 +30,6 @@ group :test, :development do
   gem 'factory_girl'
   gem 'faker'
   gem 'hirb'
-  gem 'dotenv' #, :groups => [:development]
+  gem 'dotenv'
 end
 

@@ -1,13 +1,9 @@
 get '/user' do
   user = User.find(session[:id])
-  albums = user.albums.sort_by { |album| album.updated_at }
+  albums = user.albums.sort_by { |album| album.updated_at }.reverse
   if user
     erb :"user/index", locals: { user: user, albums: albums}
   end
-end
-
-get '/user/login' do
-  erb :"user/login"
 end
 
 get '/instagram_auth' do

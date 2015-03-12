@@ -1,0 +1,44 @@
+Flow:
+
+CLick "Add an Album" ('.add-album')
+111: Album form is inserted after the '.welcome' banner
+112: Album controller is created on the #new-album-form div
+  controller = new AlbumCollection('#new-album-form')
+
+63: AlbumCollection constructor code
+  64: the AlbumCollection.View is created on ('#new-album-form')
+    86. saves the JS element that is the #new-album-form
+  65: isListening is set to false
+  66: checks to see if listening to a new album
+    71: returns if the listener already exists
+    72: otherwise sets isListening to true
+    73: creates a New Album Listener & puts it on the new Album button
+      takes a callback
+      90: takes the #new-album-form; when user clicks the #create-album button, it prevents the default & runs the callback
+      76: CALLBACK: makeNewAlbum (binding "this", which is the AlbumCollection => has the view, isListening = true, and can listen for new albums & create new albums)
+        77: calls Album.create (below)
+  67: creates an empty array of albums
+
+
+14: CREATING AN ALBUM (Album.create)
+15: sends an ajax request to '/albums/new'
+  18: sends the title & the tag of the new album
+
+
+  8: Album constructor code
+    9: Sets the title
+    10: sets the tag
+    11: creates a view for this specific album
+      *** DOES NOTHING WITH THE VIEW ***
+
+26: receives the ajax request & is either done or failed
+
+  26: request.done
+    35: builds an element using the album's name, tag, cover, and id
+    36: prepends the album to the page (on the '.scrapbook-container' class)
+    39: removes the #new-album-form form from the page (DOESN'T WORK)
+  42: request.fail
+    43: logs a fail message to the console
+
+
+

@@ -1,0 +1,20 @@
+.dark-background {
+  background-color: #3C3F36;
+}
+
+.scrapbook-container {
+  clear: both;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+/*  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  clear: both;*/
+}
+
+
+
+.album-nav {
+  width: 100%;
+}
