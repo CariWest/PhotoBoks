@@ -33,8 +33,10 @@ get '/albums/:id' do
     album.save
   end
 
-  album.cover = album.photos.first.url
-  album.save
+  if album.photos.length >= 1
+    album.cover = album.photos.first.url
+    album.save
+  end
 
   # add logic for when a new photo has been added to the mix...
 

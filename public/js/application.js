@@ -33,7 +33,7 @@ Album.create = function(title, tag) {
     }
 
     $album = buildAlbumElement(album);
-    $('.all-albums').prepend($album)
+    $('.scrapbook-container').prepend($album)
 
     // remove the add albums from the page
     $('#new-album-form').remove();
