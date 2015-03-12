@@ -1,7 +1,7 @@
 <div class="container welcome">
   <div class="album-header">
-    <h2><%= album.title %>!</h2>
-    <p><%= album.tag.name %></p>
+    <h2><%= album.title %></h2>
+    <p>#<%= album.tag.name %></p>
   </div>
 </div>
 
@@ -16,7 +16,7 @@
     </h3>
   </div>
 
-  <div class="many-photos">
+  <div class="scrapbook-container">
     <% album.photos.each do |photo| %>
       <%= erb :"/albums/_photo", locals: { photo: photo } %>
     <% end %>

@@ -11,7 +11,16 @@ var Album = function(title, tag) {
   this.view = new Album.View(this)
 }
 
-Album.create = function(title, tag) {
+// Album.create = function(data) {
+//   return $.ajax({
+//     url: POST_NEW_ALBUM,
+//     method: 'post',
+//     data: data;
+//   });
+// };
+
+
+Album.create = function(title, tag, callback) {
   var request = $.ajax({
     url: POST_NEW_ALBUM,
     method: 'post',
@@ -23,7 +32,11 @@ Album.create = function(title, tag) {
 
   // i would like to refactor this method so it's more straightforward
   // would probably mean refactoring the buildAlbumElement method to be incorporated into the view?
+
+  // move DOM stuff into the view
+  // call that later in the Album Controller View & insert it there
   request.done( function(serverData) {
+    // callback
     console.log(serverData);
     var album = {
       albumName: serverData.albumName,
@@ -33,7 +46,7 @@ Album.create = function(title, tag) {
     }
 
     $album = buildAlbumElement(album);
-    $('.all-albums').prepend($album)
+    $('.scrapbook-container').prepend($album)
 
     // remove the add albums from the page
     $('#new-album-form').remove();
@@ -55,8 +68,8 @@ var buildAlbumElement = function(albumItem) {
   $album.attr('href', album_url),
   $album.find('.album').attr('id', albumItem.albumId);
   $album.find('img').attr('src', albumItem.albumCover);
-  $album.find('.album-title').text(albumItem.albumName);
-  $album.find('.album-title').append('<span> ' + albumItem.albumTag + '</span>')
+  $album.find('.album-title').find('.title').text(albumItem.albumName);
+  $album.find('.album-title').find('.tag').text(albumItem.albumTag);
   return $album
 }
 
@@ -74,12 +87,21 @@ AlbumCollection.prototype.listenForNewAlbums = function() {
 }
 
 AlbumCollection.prototype.makeNewAlbum = function() {
+  // var album_collection = this;
+  // Album.create({
+  //   title: this.view.$elt.find('.title').val(),
+  //   tag:   this.view.$elt.find('.tag').val()
+  // }).done(function(album) {
+  //   album_collection.albums.push(album);
+  // }).fail(function(album) {
+  //   console.error('failed to create album')
+  // });
   var album = Album.create(
     this.view.$elt.find('.title').val(),
     this.view.$elt.find('.tag').val()
   );
 
-  this.albums.push(album); // still need to do something with the album we've created after this to add it to the page?
+  this.albums.push(album); // this doesn't actually do anything
 }
 
 AlbumCollection.View = function(formSelector) {
@@ -97,10 +119,10 @@ AlbumCollection.View.prototype.createNewAlbumListener = function(callback) {
 $(document).ready(function() {
 
   var controller;
-
   // could abstract this away a little better...?... UGH.
   $('.add-album').on('click', function(event) {
     event.preventDefault();
+    if ($('#new-album-form').length > 0) return
 
     var request = $.ajax({
       url: NEW_ALBUM_URL,
@@ -146,7 +168,6 @@ $(document).ready(function() {
 
     request.done( function(data) {
       $(data.form).insertAfter('.welcome');
-      // couldn't find album with 'id' = :id???
       // need to work with the controller for this function?
     });
 

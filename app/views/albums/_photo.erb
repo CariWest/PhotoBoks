@@ -1,7 +1,9 @@
 <div class="album">
   <div id="<%= photo.id %>">
-    <div class="picture">
-      <img src="<%=  photo.url %>" />
-    </div>
+    <a href="<%= photo.instagram_url %>" target="newtab">
+      <div class="picture">
+        <img src="<%=  photo.url %>" />
+      </div>
+    </a>
   </div>
 </div>
