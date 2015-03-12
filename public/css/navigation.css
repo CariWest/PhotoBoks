@@ -10,7 +10,19 @@
   align-items: flex-end;
 }
 
-.nav-bar a {
-  color: #EBE9DC;
+a {
   text-decoration: none;
+}
+
+a:visited {
+  color: #EBE9DC;
+}
+
+.album-nav {
+  background-color: #9FB03E;
+}
+
+img.login-button {
+  width: 50px;
+  height: auto;
 }

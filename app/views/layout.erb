@@ -10,9 +10,7 @@
   <!--
     application.css is where you put your styles
   -->
-  <link rel="stylesheet" href="/css/application.css">
   <link rel="stylesheet" href="/css/default.css">
-  <link rel="stylesheet" href="/css/login.css">
   <link rel="stylesheet" href="/css/navigation.css">
   <link rel="stylesheet" href="/css/scrapbook.css">
   <link rel="stylesheet" href="/css/polaroids.css">
@@ -24,12 +22,12 @@
 </head>
 <body>
   <div class="nav-bar nav-bar-flex">
-    <h2 class="left light-text"><a href="/">Home</a></h2>
+    <h2 class="left light-text"><a class="light-text" href="/">Home</a></h2>
 
     <% if session[:id] %>
       <div>
-        <h2 class="right"><a href="/user/logout">Log Out</a></h2>
-        <h2 class="right"><a href="/user">My Account</a></h2>
+        <h2 class="right"><a class="light-text" href="/user/logout">Log Out</a></h2>
+        <h2 class="right"><a class="light-text" href="/user">My Account</a></h2>
       </div>
     <% else %>
       <a href="/instagram_auth">

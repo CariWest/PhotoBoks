@@ -130,7 +130,7 @@ $(document).ready(function() {
     });
 
     request.done( function(data) {
-      $(data.form).insertAfter('.welcome'); // should abstract this jquery away...
+      $(data.form).insertAfter('.banner'); // should abstract this jquery away...
       controller = new AlbumCollection('#new-album-form');
     });
 

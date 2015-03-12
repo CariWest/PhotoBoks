@@ -1,18 +1,17 @@
-<div class="container welcome">
+<div class="container banner">
   <div class="album-header">
     <h2><%= album.title %></h2>
     <p>#<%= album.tag.name %></p>
   </div>
 </div>
 
-<div class="container">
-
+<div class="container dark-background">
   <div class="album-nav">
     <h3 class="right">
-      <a class="delete" href="/albums/<%= album.id %>">Delete</a>
+      <a class="delete light-text" href="/albums/<%= album.id %>">Delete</a>
     </h3>
     <h3 class="left">
-      <a class="edit" href="/albums/<%= album.id %>/edit">Edit</a>
+      <a class="edit light-text" href="/albums/<%= album.id %>/edit">Edit</a>
     </h3>
   </div>
 

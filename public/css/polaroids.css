@@ -24,6 +24,10 @@
   margin: .5em auto;
 }
 
+.album a {
+  color: black;
+}
+
 .picture img {
   width: 200px;
   height: auto;

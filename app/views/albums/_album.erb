@@ -1,12 +1,12 @@
+<div class="album polaroid" id="<%= album.id %>">
   <a href="/albums/<%= album.id %>">
-    <div class="album polaroid" id="<%= album.id %>">
-      <div class="picture">
-        <img src="<%= album.cover %>" />
-      </div>
-      <p class="album-title">
-        <b><span class="title"><%= album.title %></span>: </b>
-        #<span class="tag"><%= album.tag.name %></span>
-      </p>
-
+    <div class="picture">
+      <img src="<%= album.cover %>" />
     </div>
+
+    <p class="album-title">
+      <b><span class="title"><%= album.title %></span>: </b>
+      #<span class="tag"><%= album.tag.name %></span>
+    </p>
   </a>
+</div>
