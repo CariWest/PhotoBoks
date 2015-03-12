@@ -1,13 +1,16 @@
 .nav-bar {
   width: 100%;
-  background-color: yellow;
+  background-color: #72918B;
   height: 75px;
+}
+
+.nav-bar-flex {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
 }
 
 .nav-bar a {
-  color: gray;
+  color: #EBE9DC;
   text-decoration: none;
 }

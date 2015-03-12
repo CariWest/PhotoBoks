@@ -36,30 +36,7 @@ h1 {
 }
 
 /************* ALBUMS & PHOTOS *************/
-.scrapbook-container {
-  clear: both;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-/*  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  clear: both;*/
-}
 
-/*.other-container {
-  display: inline-block;
-  margin: auto;
-  /*display: flex;
-  align-items: center;
-  clear: both;*/
-/*}*/
-
-
-
-.album-nav {
-  width: 100%;
-}
 
 /******************* ALBUMS *******************/
 .album-nav a {
