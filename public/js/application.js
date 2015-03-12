@@ -65,7 +65,7 @@ var buildAlbumElement = function(albumItem) {
   var $album = $(albumTemplate);
 
   var album_url = '/albums/' + albumItem.albumId
-  $album.attr('href', album_url),
+  $album.find('a').attr('href', album_url),
   $album.find('.album').attr('id', albumItem.albumId);
   $album.find('img').attr('src', albumItem.albumCover);
   $album.find('.album-title').find('.title').text(albumItem.albumName);
