@@ -1,4 +1,4 @@
-
+// would love to get this closer to a one page app by not redirecting to a new page when a partial is rendered
 
 var getSingleAlbum = function(targetAlbum) {
 
