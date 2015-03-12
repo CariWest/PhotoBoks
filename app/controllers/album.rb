@@ -26,23 +26,18 @@ get '/albums/:id' do
   album = Album.find(params[:id])
   tag = album.tag
 
-  # should this be in the post method...?
   if album.populated == false
     add_photos_to_database_if_new_and_contain_tag(tag.name)
     album.populated = true
     album.save
+  else
+    # check for new photos
   end
 
   if album.photos.length >= 1
-    album.cover = album.photos.last.url
+    album.cover = album.photos.first.url
     album.save
   end
-
-  photos = album.photos.sort_by { |photo| photo.updated_at }.reverse
-
-  # add logic for when a new photo has been added to the mix...
-
-  # all_photos = get_photos_with_tag(tag.id)
 
   erb :"albums/index", locals: { album: album }
 end
