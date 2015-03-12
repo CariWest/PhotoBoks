@@ -68,8 +68,8 @@ var buildAlbumElement = function(albumItem) {
   $album.attr('href', album_url),
   $album.find('.album').attr('id', albumItem.albumId);
   $album.find('img').attr('src', albumItem.albumCover);
-  $album.find('.album-title').text(albumItem.albumName);
-  $album.find('.album-title').append('<span> ' + albumItem.albumTag + '</span>')
+  $album.find('.album-title').find('.title').text(albumItem.albumName);
+  $album.find('.album-title').find('.tag').text(albumItem.albumTag);
   return $album
 }
 

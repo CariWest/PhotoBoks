@@ -102,6 +102,10 @@ h1 {
   height: auto;
 }
 
+span .title {
+  font-weight: bold;
+}
+
 /******************* SINGLE ALBUM *******************/
 
 .photo-box {

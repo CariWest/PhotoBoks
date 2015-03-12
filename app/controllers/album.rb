@@ -34,9 +34,11 @@ get '/albums/:id' do
   end
 
   if album.photos.length >= 1
-    album.cover = album.photos.first.url
+    album.cover = album.photos.last.url
     album.save
   end
+
+  photos = album.photos.sort_by { |photo| photo.updated_at }.reverse
 
   # add logic for when a new photo has been added to the mix...
 
