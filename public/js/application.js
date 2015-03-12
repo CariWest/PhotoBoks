@@ -119,10 +119,10 @@ AlbumCollection.View.prototype.createNewAlbumListener = function(callback) {
 $(document).ready(function() {
 
   var controller;
-
   // could abstract this away a little better...?... UGH.
   $('.add-album').on('click', function(event) {
     event.preventDefault();
+    if ($('#new-album-form').length > 0) return
 
     var request = $.ajax({
       url: NEW_ALBUM_URL,
