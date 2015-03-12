@@ -21,16 +21,7 @@ h1 {
 
 /******************* NAV BAR *******************/
 
-.nav-bar {
-  width: 100%;
-  background-color: yellow;
-  height: 50px;
-}
 
-.nav-bar a {
-  color: gray;
-  text-decoration: none;
-}
 
 /******************* APP TITLE *******************/
 
@@ -76,40 +67,3 @@ h1 {
   text-decoration: none;
 }
 
-.album {
-  position: relative;
-  display: inline-block;
-  height: 250px;
-  width: 250px;
-  margin: 1em;
-  border: 1px solid black;
-  /*How do I center these on the page?*/
-}
-
-.album-title {
-  margin: 0px 24px;
-}
-
-.picture {
-  height: 200px;
-  width: 200px;
-  margin: .5em auto;
-  border: 1px dashed black;
-}
-
-.picture img {
-  width: 200px;
-  height: auto;
-}
-
-/******************* SINGLE ALBUM *******************/
-
-.photo-box {
-  position: relative;
-  display: inline-block;
-  height: 250px;
-  width: 250px;
-  margin: 1em;
-  border: 1px solid black;
-  /*How do I center these on the page?*/
-}

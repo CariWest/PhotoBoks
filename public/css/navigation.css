@@ -1,0 +1,13 @@
+.nav-bar {
+  width: 100%;
+  background-color: yellow;
+  height: 75px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.nav-bar a {
+  color: gray;
+  text-decoration: none;
+}
