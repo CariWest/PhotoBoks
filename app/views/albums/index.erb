@@ -6,10 +6,11 @@
 </div>
 
 <div class="container dark-background">
-
-  <% if can_edit %>
-    <%= erb :"albums/_edit_nav", locals: { album: album } %>
-  <% end %>
+  <div class="album-nav">
+    <% if can_edit %>
+      <%= erb :"albums/_edit_nav", locals: { album: album } %>
+    <% end %>
+  </div>
 
   <div class="scrapbook-container">
     <% album.photos.each do |photo| %>
