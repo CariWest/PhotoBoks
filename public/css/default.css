@@ -1,5 +1,13 @@
+* {
+  font-family: "Comfortaa";
+  font-weight: 400;
+}
+
 h1 {
   float: left;
+  font-weight: 700;
+  font-size: 400%;
+  margin: 16px 0px;
 }
 
 body {
