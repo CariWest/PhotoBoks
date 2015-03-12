@@ -4,11 +4,9 @@ helpers do
     instagram_id = user.instagram_id
 
     response = HTTParty.get("https://api.instagram.com/v1/users/#{instagram_id}/media/recent/?client_id=#{ENV['INSTAGRAM_CLIENT_ID']}")
-    puts "httparty get request works"
 
     photo_data = JSON.parse(response.body)["data"]
 
-    count = 0
     photo_data.each do |individual_photo|
       next if photo_exists_in_db?(get_URL(individual_photo))
 
@@ -20,7 +18,6 @@ helpers do
         all_tags = get_all_tags(all_tags)
         set_tag_relationships_for_photo(photo, all_tags)
       end
-      count += 1
     end
   end
 
@@ -36,14 +33,14 @@ helpers do
   end
 
   def add_user_photo_to_db(user_id, individual_photo)
-    Photo.create!(
+    photo = Photo.create!(
       url:                get_URL(individual_photo),
       instagram_url:      individual_photo["link"],
       # instagram_photo_id: "#{individual_photo['id']}",
       # caption:            "#{individual_photo['caption']}",
       user_id:            user_id
     )
-    puts "photo creates successfully"
+    return photo
   end
 
   def photo_exists_in_db?(photo_url)
@@ -73,6 +70,28 @@ helpers do
     standard_image = images["standard_resolution"]
     standard_image["url"]
     return standard_image["url"]
+  end
+
+  def check_for_new_photos_with_tag(desired_tag)
+    user = get_current_user(session[:id])
+    instagram_id = user.instagram_id
+
+    response = HTTParty.get("https://api.instagram.com/v1/users/#{instagram_id}/media/recent/?client_id=#{ENV['INSTAGRAM_CLIENT_ID']}")
+
+    photo_data = JSON.parse(response.body)["data"]
+
+    photo_data.each do |individual_photo|
+      return if photo_exists_in_db?(get_URL(individual_photo))
+
+      all_tags = individual_photo["tags"]
+      type = individual_photo["type"]
+      if photo_is_image?(type) && photo_contains_tag?(desired_tag, all_tags)
+        photo = add_user_photo_to_db(user.id, individual_photo)
+        # photo = Photo.all.last
+        all_tags = get_all_tags(all_tags)
+        set_tag_relationships_for_photo(photo, all_tags)
+      end
+    end
   end
 
 end

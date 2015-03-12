@@ -36,7 +36,7 @@ get '/albums/:id' do
     album.populated = true
     album.save
   else
-    # check for new photos
+    check_for_new_photos_with_tag(tag.name)
   end
 
   if album.photos.length >= 1
