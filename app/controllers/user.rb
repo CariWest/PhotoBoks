@@ -25,7 +25,7 @@ get '/auth' do
   })
   p "BOOM"
   p response_data = JSON.parse(response.body)
-  p access_token = response_data["access_token"]
+  p access_token = response_data["access_token"].to_s
   p user_data = response_data["user"]
   p
   puts "HERE"
@@ -34,6 +34,7 @@ get '/auth' do
   if user == nil
     user = create_user(user_data, access_token)
   end
+
   puts "AFTER USER CREATE STMT"
   if user
     puts "INSIDE IF"
