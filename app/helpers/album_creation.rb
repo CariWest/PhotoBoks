@@ -8,13 +8,25 @@ helpers do
 
   # to get older photos, use the API call to specify max_id and move back through the IG feed
   def populate_album_for_first_time(tag)
+    @next_max_id = nil
     tag = find_or_create_tag(tag)
-    hit_api_to_get_photos
-    add_all_photos_from_one_page(tag.name)
+
+    7.times do
+      hit_api_to_get_photos
+      photo_data = @photo_data # stubbed; will refactor this away later
+      add_all_photos_from_one_page(tag.name, photo_data)
+    end
   end
 
-  def add_all_photos_from_one_page(tag)
-    @photo_data.each do |individual_photo_IG_data|
+  # def populate_album_for_first_time(tag)
+  #   tag = find_or_create_tag(tag)
+  #   hit_api_to_get_photos
+  #   photo_data = @photo_data # stubbed; will refactor this away later
+  #   add_all_photos_from_one_page(tag.name, photo_data)
+  # end
+
+  def add_all_photos_from_one_page(tag, photo_data)
+    photo_data.each do |individual_photo_IG_data|
       photo = get_photo_if_it_exists(individual_photo_IG_data)
       next if photo
       add_photo_to_db_if_tag_matches(tag, individual_photo_IG_data)
@@ -32,9 +44,6 @@ helpers do
 
   def add_photo_to_db_if_tag_matches(tag, individual_photo_IG_data)
     all_tags = get_all_tag_data_from(individual_photo_IG_data)
-    p "HERE"
-    p all_tags
-    p all_tags.include?(tag)
     if photo_is_image?(individual_photo_IG_data) && all_tags.include?(tag)
       photo = create_photo(individual_photo_IG_data)
       add_tags_for_photo(photo, all_tags)
@@ -43,12 +52,17 @@ helpers do
 
   def get_user_media_from_IG(instagram_id)
     user = get_current_user
-    return HTTParty.get("https://api.instagram.com/v1/users/#{user.instagram_id}/media/recent/?access_token=#{user.access_token}")
+    if @next_max_id == nil
+      return HTTParty.get("https://api.instagram.com/v1/users/#{user.instagram_id}/media/recent/?access_token=#{user.access_token}")
+    else
+      return HTTParty.get("https://api.instagram.com/v1/users/#{user.instagram_id}/media/recent/?access_token=#{user.access_token}&max_id=#{@next_max_id}")
+      # return the other data
+    end
   end
 
   def extract_IG_data(response)
     json_object = JSON.parse(response.body)
-    # @next_max_id = json_object["pagination"]["next_max_id"]
+    @next_max_id = json_object["pagination"]["next_max_id"]
     @photo_data = json_object["data"]
   end
 

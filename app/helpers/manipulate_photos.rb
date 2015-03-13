@@ -8,7 +8,7 @@ helpers do
     user = get_current_user
     if photos = user.photos.with_tag(tag_name)
       photos.sort_by { |photo| photo.instagram_creation_time }
-      return photos.reverse
+      return photos
     end
   end
 end
