@@ -23,10 +23,11 @@ get '/auth' do
       code:           code
     }
   })
-
-  response_data = JSON.parse(response.body)
-  access_token = response_data["access_token"]
-  user_data = response_data["user"]
+  p "BOOM"
+  p response_data = JSON.parse(response.body)
+  p access_token = response_data["access_token"]
+  p user_data = response_data["user"]
+  p
   puts "HERE"
   user = get_user(user_data["username"])
 
