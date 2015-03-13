@@ -16,12 +16,12 @@ helpers do
   end
 
   def get_user_token(user_id)
-    user = User.find(user_id)
+    user = get_current_user
     return user.access_token
   end
 
-  def get_current_user(id)
-    return User.find(id)
+  def get_current_user
+    return User.find(session[:id])
   end
 end
 

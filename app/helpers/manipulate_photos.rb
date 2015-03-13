@@ -9,7 +9,7 @@ helpers do
   # end
 
   def get_sorted_photos(album_title)
-    user = get_current_user(session[:id])
+    user = get_current_user
     if photos = user.albums.find_by(title: album_title).photos
       photos.sort_by { |photo| photo.instagram_creation_time }
       return photos.reverse

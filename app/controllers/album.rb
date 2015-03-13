@@ -6,7 +6,7 @@ end
 
 post '/albums' do
   tag = find_or_create_tag(params[:tag])
-  user = get_current_user(session[:id])
+  user = get_current_user
   params[:title]
 
   album = Album.new(title: params[:title], user_id: user.id, tag_id: tag.id)
