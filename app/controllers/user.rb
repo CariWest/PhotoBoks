@@ -11,10 +11,9 @@ get '/instagram_auth' do
 end
 
 get '/auth' do
-  p params
   code = params['code']
   # need to remember to check for & parse errors
-  p response = HTTParty.post('https://api.instagram.com/oauth/access_token', {
+  response = HTTParty.post('https://api.instagram.com/oauth/access_token', {
     body: {
       client_id:      ENV['INSTAGRAM_CLIENT_ID'],
       client_secret:  ENV['INSTAGRAM_SECRET_KEY'],
@@ -23,28 +22,22 @@ get '/auth' do
       code:           code
     }
   })
-  p "BOOM"
-  p "Response: #{response}"
-  p "Response Body: #{response.body}"
-  p response_data = JSON.parse(response.body)
-  p access_token = response_data["access_token"].to_s
-  p user_data = response_data["user"]
-  p
-  puts "HERE"
+
+  response_data = JSON.parse(response.body)
+  access_token = response_data["access_token"]
+  user_data = response_data["user"]
+
   user = get_user(user_data["username"])
 
   if user == nil
     user = create_user(user_data, access_token)
   end
 
-  puts "AFTER USER CREATE STMT"
   if user
-    puts "INSIDE IF"
     status 200
     session[:id] = user.id
     redirect '/user', locals: { user: user }
   else
-    puts "INSIDE ELSE OF IF"
     puts "user authorization fails"
   end
 end

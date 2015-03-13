@@ -71,7 +71,6 @@ helpers do
   def get_URL(photo_data)
     images = photo_data["images"]
     standard_image = images["standard_resolution"]
-    standard_image["url"]
     return standard_image["url"]
   end
 
