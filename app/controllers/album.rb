@@ -36,7 +36,7 @@ get '/albums/:id' do
     album.save
   end
 
-  sorted_photos = get_sorted_photos(album.title)
+  sorted_photos = get_sorted_photos(album.tag.name)
 
   erb :"albums/index", locals: { album: album, can_edit: can_edit, photos: sorted_photos }
 end
