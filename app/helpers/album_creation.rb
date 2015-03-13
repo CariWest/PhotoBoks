@@ -1,9 +1,15 @@
 helpers do
-  def populate_album_for_first_time(tag)
-    tag = find_or_create_tag(tag)
+  # need to utilize the API call to specify max_id
+  def hit_api_to_get_photos
     @user = get_current_user(session[:id])
     response = get_media_from_IG(@user.instagram_id)
     get_IG_data(response)
+  end
+
+  # to get older photos, use the API call to specify max_id and move back through the IG feed
+  def populate_album_for_first_time(tag)
+    tag = find_or_create_tag(tag)
+    hit_api_to_get_photos
     add_all_photos_from_one_page(tag.name)
   end
 
@@ -16,6 +22,7 @@ helpers do
   end
 
   def check_for_new_photos(tag)
+    hit_api_to_get_photos
     @photo_data.each do |individual_photo|
       photo = get_photo_if_it_exists(individual_photo)
       return if photo
@@ -60,7 +67,9 @@ helpers do
     individual_photo["images"]["standard_resolution"]["url"]
   end
 
+  # need to add ability to specify what the max ID is in this method
   def get_media_from_IG(instagram_id)
+    p "INSTAGRAM ID: #{instagram_id}"
     return HTTParty.get("https://api.instagram.com/v1/users/#{instagram_id}/media/recent/?client_id=#{ENV['INSTAGRAM_CLIENT_ID']}")
   end
 

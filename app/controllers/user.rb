@@ -36,6 +36,9 @@ get '/auth' do
   if user
     status 200
     session[:id] = user.id
+    p session[:id]
+    p user
+    p user.id
     redirect '/user', locals: { user: user }
   else
     puts "user authorization fails"
