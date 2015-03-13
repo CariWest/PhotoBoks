@@ -1,8 +1,4 @@
 helpers do
-  def get_current_user(id)
-    return User.find(id)
-  end
-
   # this method is so ugly. Refactor me eventually!
   def find_or_create_tag(tag_name)
     tag_name.gsub!("#", "")

@@ -6,7 +6,7 @@ end
 
 post '/albums' do
   tag = find_or_create_tag(params[:tag])
-  user = get_current_user(session[:id])
+  user = get_current_user
   params[:title]
 
   album = Album.new(title: params[:title], user_id: user.id, tag_id: tag.id)
@@ -25,11 +25,10 @@ get '/albums/:id' do
   can_edit = (session[:id] == album.user.id)
 
   if album.populated == false
-    add_photos_to_database_if_new_and_contain_tag(tag.name)
-    album.populated = true
-    album.save
+    populate_album_for_first_time(tag.name)
+    album.update_attributes(populated: true)
   else
-    check_for_new_photos_with_tag(tag.name)
+    check_for_new_photos(tag.name)
   end
 
   if album.photos.length >= 1
@@ -37,7 +36,7 @@ get '/albums/:id' do
     album.save
   end
 
-  sorted_photos = get_sorted_photos(album.id)
+  sorted_photos = get_sorted_photos(album.title)
 
   erb :"albums/index", locals: { album: album, can_edit: can_edit, photos: sorted_photos }
 end

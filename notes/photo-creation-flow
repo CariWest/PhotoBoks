@@ -1,0 +1,35 @@
+Flow
+
+1. Populate Album For the First time
+  a. Find or create the tag I'm looking for
+  b. Hit the API to get the Photos
+  c. Add all the photos from one page
+
+A. Find or create the tag I'm looking for
+  1. get the tag_name
+  2. Sub out the # for a ""
+  3. Create or find the tag
+
+B. Hit the API to get the Photos
+  1. Get the current user & store in @user
+  2. Get the response from Instagram
+  3. Get the instagram Data from that response
+
+C. Add all the photos from one page
+For each piece of photo data in the photo data collection...
+  1. get the photo if it exists already in the DB
+    a. take the photo data's url
+    b. compare it to the other urls in the database
+  2. If the photo exists, move on
+  3. Otherwise, add the photo to the database if the tag matches
+
+3. get all the tags from the IG data
+  a. if the photo is an image && if it has the appropriate tag
+  b. create the photo
+  c. create the tags for the photo
+  d. set the tag relationships for the photo
+
+C. Create the tags for the photo
+  1. get all the tags from the IG photo data
+  2. exit if there are no tags
+  3. map the tags via find_or_create_tag

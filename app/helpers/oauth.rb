@@ -16,8 +16,16 @@ helpers do
   end
 
   def get_user_token(user_id)
-    user = User.find(user_id)
+    user = get_current_user
     return user.access_token
+  end
+
+  def current_user
+    @current_user ||= User.find(session[:id]) if session[:id]
+  end
+
+  def get_current_user
+    return User.find(session[:id])
   end
 end
 

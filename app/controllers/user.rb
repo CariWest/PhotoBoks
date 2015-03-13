@@ -11,7 +11,7 @@ get '/instagram_auth' do
 end
 
 get '/auth' do
-  p code = params['code']
+  code = params['code']
   # need to remember to check for & parse errors
   response = HTTParty.post('https://api.instagram.com/oauth/access_token', {
     body: {
