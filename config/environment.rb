@@ -16,15 +16,17 @@ require 'active_record'
 require 'logger'
 
 require 'sinatra'
-require "sinatra/reloader" if development?
+
+if development?
+  require "sinatra/reloader"
+  require 'dotenv'
+  Dotenv.load
+  require 'hirb'
+  Hirb.enable
+end
 
 require 'erb'
 
-require 'dotenv'
-Dotenv.load
-
-require 'hirb'
-Hirb.enable
 
 require 'httparty'
 
