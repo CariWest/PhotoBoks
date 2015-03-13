@@ -31,12 +31,13 @@ get '/albums/:id' do
     check_for_new_photos(tag.name)
   end
 
+  sorted_photos = get_sorted_photos(album.tag.name)
+
   if album.photos.length >= 1
-    album.cover = album.photos.last.url
+    album.cover = sorted_photos.first.url
     album.save
   end
 
-  sorted_photos = get_sorted_photos(album.tag.name)
 
   erb :"albums/index", locals: { album: album, can_edit: can_edit, photos: sorted_photos }
 end
