@@ -7,8 +7,7 @@ get '/user' do
 end
 
 get '/instagram_auth' do
-  redirect "https://api.instagram.com/oauth/authorize/?client_id=#{ENV['INSTAGRAM_CLIENT_ID']}&redirect_uri=
-  &response_type=code"
+  redirect "https://api.instagram.com/oauth/authorize/?client_id=#{ENV['INSTAGRAM_CLIENT_ID']}&redirect_uri=#{ENV['IG_AUTHORIZE_REDIRECT']}&response_type=code"
 end
 
 get '/auth' do
