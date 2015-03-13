@@ -11,19 +11,12 @@ helpers do
     @next_max_id = nil
     tag = find_or_create_tag(tag)
 
-    7.times do
+    10.times do
       hit_api_to_get_photos
       photo_data = @photo_data # stubbed; will refactor this away later
       add_all_photos_from_one_page(tag.name, photo_data)
     end
   end
-
-  # def populate_album_for_first_time(tag)
-  #   tag = find_or_create_tag(tag)
-  #   hit_api_to_get_photos
-  #   photo_data = @photo_data # stubbed; will refactor this away later
-  #   add_all_photos_from_one_page(tag.name, photo_data)
-  # end
 
   def add_all_photos_from_one_page(tag, photo_data)
     photo_data.each do |individual_photo_IG_data|
