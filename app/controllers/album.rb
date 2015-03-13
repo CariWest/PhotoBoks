@@ -32,7 +32,7 @@ get '/albums/:id' do
   end
 
   if album.photos.length >= 1
-    album.cover = album.photos.first.url
+    album.cover = album.photos.last.url
     album.save
   end
 
