@@ -24,6 +24,8 @@ get '/auth' do
     }
   })
   p "BOOM"
+  p "Response: #{response}"
+  p "Response Body: #{response.body}"
   p response_data = JSON.parse(response.body)
   p access_token = response_data["access_token"].to_s
   p user_data = response_data["user"]
