@@ -27,18 +27,20 @@ get '/auth' do
   response_data = JSON.parse(response.body)
   access_token = response_data["access_token"]
   user_data = response_data["user"]
-
+  puts "HERE"
   user = get_user(user_data["username"])
 
   if user == nil
     user = create_user(user_data, access_token)
   end
-
+  puts "AFTER USER CREATE STMT"
   if user
+    puts "INSIDE IF"
     status 200
     session[:id] = user.id
     redirect '/user', locals: { user: user }
   else
+    puts "INSIDE ELSE OF IF"
     puts "user authorization fails"
   end
 end
