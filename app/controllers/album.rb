@@ -25,11 +25,10 @@ get '/albums/:id' do
   can_edit = (session[:id] == album.user.id)
 
   if album.populated == false
-    add_photos_to_database_if_new_and_contain_tag(tag.name)
-    album.populated = true
-    album.save
-  else
-    check_for_new_photos_with_tag(tag.name)
+    populate_album_for_first_time(tag.name)
+    album.update_attributes(populated: true)
+  # else
+  #   check_for_new_photos(tag.name)
   end
 
   if album.photos.length >= 1

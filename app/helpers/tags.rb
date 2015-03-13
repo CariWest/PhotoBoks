@@ -12,7 +12,7 @@ helpers do
 
   def create_tags(individual_photo)
     all_tags = individual_photo["tags"]
-    return if all_tags.empty?
+    return if all_tags.nil?
     all_tags.map { |tag_name| find_or_create_tag(tag_name) }
   end
 end
