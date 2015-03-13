@@ -4,13 +4,9 @@ helpers do
     tag.photos
   end
 
-  # def get_photos_which_belong_to_user_and_album(user, album)
-  #   albums.user.photos
-  # end
-
   def get_sorted_photos(album_title)
     user = get_current_user
-    if photos = user.albums.find_by(title: album_title).photos
+    if photos = user.photos.with_tag("sanfrancisco")
       photos.sort_by { |photo| photo.instagram_creation_time }
       return photos.reverse
     end
