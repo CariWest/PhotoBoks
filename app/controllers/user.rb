@@ -18,7 +18,7 @@ get '/auth' do
       client_id:      ENV['INSTAGRAM_CLIENT_ID'],
       client_secret:  ENV['INSTAGRAM_SECRET_KEY'],
       grant_type:     "authorization_code",
-      redirect_uri:   "http://127.0.0.1:9393/auth",
+      redirect_uri:   ENV['IG_AUTHORIZE_REDIRECT'],
       code:           code
     }
   })
