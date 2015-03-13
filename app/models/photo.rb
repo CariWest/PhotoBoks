@@ -5,4 +5,6 @@ class Photo < ActiveRecord::Base
   has_many :albums, through: :tags
   has_many :tags, through: :photo_tags
   has_many :photo_tags
+
+
 end

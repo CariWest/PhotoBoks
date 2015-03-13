@@ -19,5 +19,9 @@ helpers do
     user = User.find(user_id)
     return user.access_token
   end
+
+  def get_current_user(id)
+    return User.find(id)
+  end
 end
 
