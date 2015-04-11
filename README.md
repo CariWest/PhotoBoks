@@ -1,33 +1,18 @@
-# P10 Build Something Beautiful
+# PhotoBoks
 
-##Learning Competencies
+##Description
 
-  * Building a web application from scratch
-  * Managing the development process
-  *
+PhotoBoks sorts a user's Instagram content into personalized photo albums based on hashtags. This allows users to sort their photos without losing their photos in the noise of a popular Instagram hashtag.
 
-##Summary
+##Technologies Used
 
-  You've learned a lot in phase 2: Sinatra, Active Record, Heroku, RSpec, JavaScript, Agile, and much more. Each of these tools is useful in its own right, but together, they give you something much more powerful — the ability to build a web application from nothing.
+This app uses Ruby and Active Record for the backend. On the front end, the app uses Sinatra, JavaScript, and jQuery, with an emphasis on restful routes. The app uses AJAX to implement single-page aspects and improve user experience.
 
-  For this challenge, your assignment is to build something. It can be as practical or trivial as you would want, as long as its a 100% functional, full-stack web application.
+##Next Steps
 
-##Releases
+I plan to implement the ability to follow other users. I also intend to allow users to authorize friends to contribute to a photo album; this way, groups can organize their photos for an event without worrying about creating a unique hashtag.
 
+I also hope to deploy the app to Heroku.
 
-###Release 0: Decide on What to Build
-
-You can build anything you want, provided that it meets the following requirements:
-
-- It has a database
-- It uses an API
-- It is styled
-- It utilizes JavaScript
-- It has meaningful test coverage
-- It is deployed
-
-Once you've come up with an idea, get one of your teachers to approve it.
-
-###Release 1: Build it
-
-Once apporoved, start building your project. Be sure to submit a link to where we can see your site live.
+##About the Project
+I built this project over the course of a week during my time at Dev Bootcamp. The prompt we received was to "make something beautiful." I chose this project because it solves one of the frustrations I regularly experience with Instagram: the inability to filter out just my photos from a single hashtag.
